@@ -9,20 +9,6 @@ import { map } from "rxjs/operators";
  *
  * T Z S I O J L
  */
-const e = 'e';
-const PIECES = {
-  T: {shape: [
-    [],
-    [],
-    [],
-  ]},
-  Z: {},
-  S: {},
-  I: {},
-  O: {},
-  J: {},
-  L: {}
-};
 
 const tick$ = interval(250);
 

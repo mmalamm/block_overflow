@@ -1,51 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { interval, fromEvent, merge } from "rxjs";
-import { map } from "rxjs/operators";
+import React from "react";
 import "./App.css";
 
-const createRow = () => [...Array(10)].map(() => "a");
+import PIECES, { COLORS } from "./tetris_rx/pieces";
 
-const createInitState = () => {
-  return [...Array(20)].map(createRow);
-};
+import styles from "./App.module.css";
 
 export default function App() {
-  const [board, setBoard] = useState(createInitState());
-  const [keypress, setKeypress] = useState(null);
-  useEffect(() => {
-    const boardTick$ = interval(250).pipe(
-      map(i => i % 20),
-      map(j => {
-        const copy = [...board.map(row => [...row])];
-        copy[j][4] = "b";
-        return copy;
-      })
-    );
-    const keyPress$ = fromEvent(document, "keydown");
-
-    keyPress$.subscribe(({ key }) => {
-      setKeypress(key);
-    });
-
-    const game$ = merge(boardTick$);
-    game$.subscribe(board => setBoard(board));
-  }, []);
-
   return (
     <div className="App">
-      {board.map((row, i) => (
-        <div style={{ display: "flex" }} key={i}>
-          {row.map((cell, j) => (
-            <div
-              style={{ color: cell === "b" ? "blue" : "#222", padding: "3px" }}
-              key={j}
-            >
-              {cell}
+      {["I", "J", "L", "O", "S", "T", "Z"]
+        .map(p => ({ name: p, ...PIECES[p] }))
+        .map(pc => {
+          const { name, shapes, color } = pc;
+          return (
+            <div key={name}>
+              <h2 style={{ color }}>{name}</h2>
+              <div className={styles.piece}>
+                {shapes.map((s, idx) => (
+                  <div className={styles.shape} key={idx}>
+                    {s.map((r, idx) => (
+                      <div key={idx} className={styles.row}>
+                        {[...r.toUpperCase()].map((c, idx) => (
+                          <div
+                            key={idx}
+                            className={styles.cell}
+                            style={{ color: COLORS[c.toLowerCase()] }}
+                          >
+                            {c}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-      ))}
-      <h1>{keypress}</h1>
+          );
+        })}
     </div>
   );
 }
