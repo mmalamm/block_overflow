@@ -6,7 +6,7 @@ const PIECES = {
       ["eee", "ttt", "ete"],
       ["ete", "tte", "ete"]
     ],
-    color: "purple"
+    color: "magenta"
   },
   Z: {
     shapes: [
