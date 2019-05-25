@@ -1,19 +1,68 @@
-import { getShape } from "./pieces";
+import PIECES, { getShape } from "./pieces";
 
 export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
-const { I, S, J, L, O, T, Z } = "IJLOSTZ"
-  .split("")
-  .reduce((a, l) => ({ ...a, [l]: l }));
+const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
+  (a, l) => ({ ...a, [l]: l }),
+  {}
+);
 
 export const createInitalState = () => {
   return {
-    playerPiece: { piece: L, x: 4, y: 0, orientation: 0 },
+    playerPiece: { pieceName: L, x: 4, y: 0, orientation: 0 },
     board: createEmptyBoard(),
     upcomingPieces: [T, I, S, J, O, Z],
     score: 0
   };
 };
+
+export const canShift = direction => (board, pce) => {
+  const { y, x } = pce;
+  const isLeft = direction === "LEFT";
+  const currentShape = getShape(pce);
+  const len = currentShape.length;
+  if ((isLeft && x - 1 < 0) || (!isLeft && x + len > 9)) {
+    return false;
+  }
+  if (isLeft) {
+    for (let i = 0; i < len; i++) {
+      if (board[y + i][x - 1] === undefined) {
+        if (currentShape[i][0] === 'e') {
+          continue;
+        } else {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+};
+// export const canShift = direction => (board, pce) => {
+//   const { y, x } = pce;
+//   const isLeft = direction === "LEFT";
+//   const currentShape = getShape(pce);
+//   const len = currentShape.length;
+//   if ((isLeft && x - 1 < 0) || (!isLeft && x + len + 1 > 9)) {
+//     debugger;
+//     return false;
+//   }
+//   for (let i = 0; i < len; i++) {
+//     if (board[y + i][isLeft ? x - 1 : len + x] === undefined) {
+//       debugger;
+//       if (currentShape[i][isLeft ? 0 : -1] !== "e") {
+//         return false;
+//       } else {
+//         return true;
+//       }
+//     } else if (
+//       board[y + i][isLeft ? 0 : -1] !== "e" &&
+//       currentShape[i][isLeft ? 0 : -1] !== "e"
+//     ) {
+//       return false;
+//     }
+//   }
+//   return true;
+// };
 
 export const willCollide = (board, pce) => {
   const currentShape = getShape(pce);
@@ -30,50 +79,44 @@ export const willCollide = (board, pce) => {
   }
   if (pce.y + currentShape.filter(row => row.replace(/e/g, "")).length > 19)
     return true;
-  console.log("sq:", squareOfNextTick);
+  // console.log("sq:", squareOfNextTick);
 };
 
 export const createNewBoard = (board, pce) => {
   const newBoard = [...board];
   const currentShape = getShape(pce);
   const len = currentShape.length;
-  // debugger;
-  // for (let i = 0; i < currentShape.length; i++) {
-  //   if (!newBoard[pce.y + i]) continue;
-  //   newBoard[pce.y + i] =
-  //     newBoard[pce.y + i].slice(0, pce.x) +
-  //     currentShape[i] +
-  //     newBoard[pce.y + i].slice(pce.x + currentShape[i].length);
-  // }
-
-  // for (let i = 0; i < len; i++) {
-  //   if (!board[i]) continue;
-  //   let newRow = board[i].slice(0, pce.x);
-  //   for (let j = 0; j < currentShape[i].length + pce.x; j++) {
-  //     if (currentShape[i][j] !== "e" && board[i][pce.x + j] !== "e") continue;
-  //     newRow += currentShape[i][j]
-  //   }
-  //   newRow += board[i].slice(pce.x + len);
-  //   newBoard[i] = newRow;
-  // }
   for (let i = 0; i < len; i++) {
     const newY = i + pce.y;
-    debugger;
     if (!newBoard[newY]) continue;
 
     let newRow = board[newY].slice(0, pce.x);
-    // newBoard[newY] = `${board[newY].slice(0, pce.x)}${currentShape[i]}${board[
-    //   newY
-    // ].slice(pce.x + currentShape[i].length)}`;
     for (let j = 0; j < currentShape[i].length; j++) {
       if (currentShape[i][j] === "e") {
-        newRow += board[newY][pce.x + i];
-      } else if (board[newY][pce.x + i] === "e") {
+        newRow += board[newY][pce.x + j];
+      } else if (board[newY][pce.x + j] === "e") {
         newRow += currentShape[i][j];
       }
     }
     newRow += board[newY].slice(pce.x + len);
     newBoard[newY] = newRow;
+  }
+  return newBoard;
+};
+
+export const mergeBoard = (board, pce) => {
+  ///
+  if (!Array.isArray(board)) debugger;
+  const newBoard = [...board];
+  if (!PIECES[pce.pieceName]) debugger;
+  const currentShape = PIECES[pce.pieceName].shapes[pce.orientation];
+  for (let i = 0; i < currentShape.length; i++) {
+    if (newBoard[pce.y + i]) {
+      newBoard[pce.y + i] =
+        newBoard[pce.y + i].slice(0, pce.x) +
+        currentShape[i] +
+        newBoard[pce.y + i].slice(pce.x + currentShape[i].length);
+    }
   }
   return newBoard;
 };
