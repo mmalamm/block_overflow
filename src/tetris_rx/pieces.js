@@ -66,4 +66,21 @@ export const COLORS = Object.keys(PIECES).reduce(
   { e: "#222" }
 );
 
+export const mergeBoard = (board, pce) => {
+  if (!Array.isArray(board)) debugger;
+  const newBoard = [...board];
+  const currentShape = PIECES[pce.piece].shapes[pce.orientation];
+  for (let i = 0; i < currentShape.length; i++) {
+    if (newBoard[pce.y + i]) {
+      newBoard[pce.y + i] =
+        newBoard[pce.y + i].slice(0, pce.x) +
+        currentShape[i] +
+        newBoard[pce.y + i].slice(pce.x + currentShape[i].length);
+    }
+  }
+  return newBoard;
+};
+
 export default PIECES;
+
+export const getShape = pce => PIECES[pce.piece].shapes[pce.orientation]

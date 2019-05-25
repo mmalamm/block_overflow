@@ -1,23 +1,29 @@
 import { createStore } from "redux";
 
-const { I, S, J, L, O, T, Z } = "IJLOSTZ"
-  .split("")
-  .reduce((a, l) => ({ ...a, [l]: l }));
+import { willCollide, createNewBoard, createInitalState } from './helpers';
 
-const createInitalState = () => {
-  return {
-    currentPiece: { piece: L, x: 4, y: 0 },
-    board: [...Array(20)].map(row => "e".repeat(10)),
-    upcomingPieces: [T, I, S, J, O, Z],
-    score: 0
-  };
-};
 
 const initialState = createInitalState();
 
 const reducers = {
-  TICK: (state, payload) => {
-    
+  TICK: state => {
+    console.log("TICK hit!!");
+    const { board, playerPiece, upcomingPieces } = state;
+    if (willCollide(board, playerPiece)) {
+      const newUpcomingPieces = upcomingPieces.slice();
+      const nextPiece = newUpcomingPieces.pop();
+      return {
+        ...state,
+        playerPiece: { piece: nextPiece, x: 4, y: 0, orientation: 0 },
+        board: createNewBoard(board, playerPiece),
+        upcomingPieces: newUpcomingPieces
+      };
+    } else {
+      return {
+        ...state,
+        playerPiece: { ...playerPiece, y: playerPiece.y + 1 }
+      };
+    }
   }
 };
 
