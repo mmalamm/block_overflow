@@ -9,7 +9,7 @@ const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
 
 export const createInitalState = () => {
   return {
-    playerPiece: { pieceName: L, x: 4, y: 0, orientation: 0 },
+    playerPiece: { pieceName: L, x: 4, y: 0, orientation: 3 },
     board: createEmptyBoard(),
     upcomingPieces: [T, I, S, J, O, Z],
     score: 0
@@ -21,9 +21,9 @@ export const canShift = direction => (board, pce) => {
   const isLeft = direction === "LEFT";
   const currentShape = getShape(pce);
   const len = currentShape.length;
-  if ((isLeft && x - 1 < 0) || (!isLeft && x + len > 9)) {
-    return false;
-  }
+  // if ((isLeft && x - 1 < 0) || (!isLeft && x + len > 9)) {
+  //   return false;
+  // }
   if (isLeft) {
     for (let i = 0; i < len; i++) {
       if (board[y + i][x - 1] === undefined) {
@@ -35,34 +35,26 @@ export const canShift = direction => (board, pce) => {
       }
     }
   }
+  if (!isLeft) {
+    for (let i = 0; i < len; i++) {
+      if (board[y + i][x + len] === undefined) {
+        const thing = y + i;
+        const otherThing = x + len;
+        console.log(i, thing, otherThing);
+        const lastColPiece = currentShape[i][len - 1];
+        // debugger;
+        if (lastColPiece === 'e') {
+          // debugger;
+          continue;
+        } else {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
   return true;
 };
-// export const canShift = direction => (board, pce) => {
-//   const { y, x } = pce;
-//   const isLeft = direction === "LEFT";
-//   const currentShape = getShape(pce);
-//   const len = currentShape.length;
-//   if ((isLeft && x - 1 < 0) || (!isLeft && x + len + 1 > 9)) {
-//     debugger;
-//     return false;
-//   }
-//   for (let i = 0; i < len; i++) {
-//     if (board[y + i][isLeft ? x - 1 : len + x] === undefined) {
-//       debugger;
-//       if (currentShape[i][isLeft ? 0 : -1] !== "e") {
-//         return false;
-//       } else {
-//         return true;
-//       }
-//     } else if (
-//       board[y + i][isLeft ? 0 : -1] !== "e" &&
-//       currentShape[i][isLeft ? 0 : -1] !== "e"
-//     ) {
-//       return false;
-//     }
-//   }
-//   return true;
-// };
 
 export const willCollide = (board, pce) => {
   const currentShape = getShape(pce);
@@ -79,7 +71,6 @@ export const willCollide = (board, pce) => {
   }
   if (pce.y + currentShape.filter(row => row.replace(/e/g, "")).length > 19)
     return true;
-  // console.log("sq:", squareOfNextTick);
 };
 
 export const createNewBoard = (board, pce) => {

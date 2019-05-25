@@ -9,6 +9,8 @@ import store from "./tetris_rx/store";
 import { interval, fromEvent } from "rxjs";
 import { COLORS } from "./tetris_rx/pieces";
 
+window.store = store;
+
 export default function App() {
   const [state, setState] = useState(store.getState());
   useEffect(() => {
