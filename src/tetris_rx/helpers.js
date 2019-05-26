@@ -9,52 +9,124 @@ const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
 
 export const createInitalState = () => {
   return {
-    playerPiece: { pieceName: L, x: 4, y: 0, orientation: 3 },
+    playerPiece: { pieceName: L, x: 4, y: 0, orientation: 3, offset: 0 },
     board: createEmptyBoard(),
     upcomingPieces: [T, I, S, J, O, Z],
     score: 0
   };
 };
 
-export const canShift = direction => (board, pce) => {
-  const { y, x } = pce;
-  const isLeft = direction === "LEFT";
+export const shiftLeft = state => {
+  const { board, playerPiece: pce } = state;
   const currentShape = getShape(pce);
   const len = currentShape.length;
-  // if ((isLeft && x - 1 < 0) || (!isLeft && x + len > 9)) {
-  //   return false;
-  // }
-  if (isLeft) {
-    for (let i = 0; i < len; i++) {
-      if (board[y + i][x - 1] === undefined) {
-        if (currentShape[i][0] === 'e') {
-          continue;
-        } else {
-          return false;
-        }
-      }
+  const firstColOfShape = currentShape.map(row => row[0]);
+  // for wall hits
+  if (pce.x === 0) {
+    if (firstColOfShape.every(cell => cell === "e")) {
+      const newPlayerPiece = { ...pce, offset: 1 };
+      return { ...state, playerPiece: newPlayerPiece };
+    } else {
+      return null;
     }
   }
-  if (!isLeft) {
-    for (let i = 0; i < len; i++) {
-      if (board[y + i][x + len] === undefined) {
-        const thing = y + i;
-        const otherThing = x + len;
-        console.log(i, thing, otherThing);
-        const lastColPiece = currentShape[i][len - 1];
-        // debugger;
-        if (lastColPiece === 'e') {
-          // debugger;
-          continue;
-        } else {
-          return false;
-        }
-      }
-      return true;
+  // for lateral piece collisions
+  const colLeftOfShape = board
+    .slice(pce.y, pce.y + len)
+    .map(row => row[pce.x - 1]);
+  for (let i = 0; i < len; i++) {
+    if (colLeftOfShape[i] !== "e" && firstColOfShape[i] !== "e") {
+      return null;
     }
   }
-  return true;
+
+  return {
+    ...state,
+    playerPiece: {
+      ...pce,
+      offset: 0,
+      x: pce.x - 1
+    }
+  };
 };
+export const shiftRight = state => {
+  const { board, playerPiece: pce } = state;
+  const currentShape = getShape(pce);
+  const len = currentShape.length;
+  const lastColOfShape = currentShape.map(row => row[len-1]);
+  // for wall hits
+  if (pce.x + len === 10) {
+    debugger;
+    if (lastColOfShape.every(cell => cell === "e")) {
+      const newPlayerPiece = { ...pce, offset: -1 };
+      return { ...state, playerPiece: newPlayerPiece };
+    } else {
+      return null;
+    }
+  }
+  // for lateral piece collisions
+  const colRightOfShape = board
+    .slice(pce.y, pce.y + len)
+    .map(row => row[pce.x + len]);
+  for (let i = 0; i < len; i++) {
+    if (colRightOfShape[i] !== "e" && lastColOfShape[i] !== "e") {
+      // debugger;
+      return null;
+    }
+  }
+
+  return {
+    ...state,
+    playerPiece: {
+      ...pce,
+      offset: 0,
+      x: pce.x + 1
+    }
+  };
+};
+export const shiftDown = state => {
+  const { board, playerPiece: pce } = state;
+};
+
+// export const canShift = direction => (board, pce) => {
+//   const { y, x } = pce;
+//   const isLeft = direction === "LEFT";
+//   const currentShape = getShape(pce);
+//   const len = currentShape.length;
+//   // if ((isLeft && x - 1 < 0) || (!isLeft && x + len > 9)) {
+//   //   return false;
+//   // }
+//   if (isLeft) {
+//     for (let i = 0; i < len; i++) {
+//       if (board[y + i][x - 1] === undefined) {
+//         if (currentShape[i][0] === "e") {
+//           continue;
+//         } else {
+//           return false;
+//         }
+//       }
+//     }
+//   }
+//   if (!isLeft) {
+//     for (let i = 0; i < len; i++) {
+//       if (board[y + i][x + len] === undefined) {
+//         const thing = y + i;
+//         const otherThing = x + len;
+//         console.log(i, thing, otherThing);
+//         const lastColPiece = currentShape[i][len - 1];
+//         // debugger;
+//         if (lastColPiece === "e") {
+//           // debugger;
+//           continue;
+//         } else {
+//           return false;
+//         }
+//       }
+//       return true;
+//     }
+//   }
+//   return true;
+// };
 
 export const willCollide = (board, pce) => {
   const currentShape = getShape(pce);

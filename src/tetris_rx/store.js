@@ -4,10 +4,18 @@ import {
   willCollide,
   createNewBoard,
   createInitalState,
-  canShift
+  // canShift
+  shiftLeft,
+  shiftRight,
+  shiftDown
 } from "./helpers";
 
 const initialState = createInitalState();
+const shiftFns = {
+  LEFT: shiftLeft,
+  RIGHT: shiftRight,
+  DOWN: shiftDown
+};
 
 const reducers = {
   TICK: state => {
@@ -30,6 +38,7 @@ const reducers = {
     }
   },
   SHIFT: (state, payload) => {
+    /*
     const { board, playerPiece } = state;
     switch (payload) {
       case "LEFT":
@@ -71,6 +80,8 @@ const reducers = {
       default:
         return { ...state };
     }
+    */
+    return shiftFns[payload](state) || { ...state };
   }
 };
 
