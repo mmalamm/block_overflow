@@ -81,7 +81,7 @@ const reducers = {
         return { ...state };
     }
     */
-    return shiftFns[payload](state) || { ...state };
+    return (shiftFns[payload] || (() => null))(state) || { ...state };
   }
 };
 

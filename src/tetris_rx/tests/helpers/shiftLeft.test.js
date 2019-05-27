@@ -1,6 +1,6 @@
 import { createEmptyBoard, shiftLeft } from "../../helpers";
 describe("shiftLeft tests", () => {
-  test("returns null at right wall when piece orientation is at edge", () => {
+  test("returns null at left wall when piece orientation is at edge", () => {
     const emptyBoard = createEmptyBoard();
     const playerPiece = {
       pieceName: "L",
@@ -22,7 +22,7 @@ describe("shiftLeft tests", () => {
     }
     expect(shiftLeft({ board: inputBoard, playerPiece: inputPlayerPiece })).toBeNull();
   })
-  test("returns offsetted piece state at right wall when piece orientation is not at its edge", () => {
+  test("returns offsetted piece state at left wall when piece orientation is not at its edge", () => {
     const emptyBoard = createEmptyBoard();
     const playerPiece = {
       pieceName: "L",

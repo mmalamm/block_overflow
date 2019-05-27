@@ -15,8 +15,9 @@ export default function App() {
   const [state, setState] = useState(store.getState());
   useEffect(() => {
     store.subscribe(_ => setState(store.getState()));
-    interval(200).subscribe(() => store.dispatch({ type: "TICK" }));
+    interval(750).subscribe(() => store.dispatch({ type: "TICK" }));
     fromEvent(document, "keydown").subscribe(e =>
+      
       store.dispatch({
         type: "SHIFT",
         payload: e.key.replace("Arrow", "").toUpperCase()

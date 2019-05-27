@@ -7,11 +7,22 @@ const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
   {}
 );
 
+// const diffSections = (boardSection, inputShape) => {
+//   const len = inputShape.length;
+//   for (let y = 0; y < len; y++) {
+//     for (let x = 0; x < len; x++) {
+//       if (boardSection[y][x] === undefined) {
+
+//       }
+//     }
+//   }
+// }
+
 export const createInitalState = () => {
   return {
-    playerPiece: { pieceName: L, x: 4, y: 0, orientation: 3, offset: 0 },
+    playerPiece: { pieceName: J, x: 4, y: 0, orientation: 3, offset: 0 },
     board: createEmptyBoard(),
-    upcomingPieces: [T, I, S, J, O, Z],
+    upcomingPieces: [T, I, S, J, O, Z, L, S],
     score: 0
   };
 };
@@ -49,16 +60,18 @@ export const shiftLeft = state => {
     }
   };
 };
+
+
 export const shiftRight = state => {
   const { board, playerPiece: pce } = state;
   const currentShape = getShape(pce);
   const len = currentShape.length;
-  const lastColOfShape = currentShape.map(row => row[len-1]);
+  const lastColOfShape = currentShape.map(row => row[len - 1]);
   // for wall hits
   if (pce.x + len === 10) {
     debugger;
     if (lastColOfShape.every(cell => cell === "e")) {
-      const newPlayerPiece = { ...pce, offset: -1 };
+      const newPlayerPiece = { ...pce, x: pce.x + 1, offset: -1 };
       return { ...state, playerPiece: newPlayerPiece };
     } else {
       return null;
@@ -86,47 +99,19 @@ export const shiftRight = state => {
 };
 export const shiftDown = state => {
   const { board, playerPiece: pce } = state;
-};
 
-// export const canShift = direction => (board, pce) => {
-//   const { y, x } = pce;
-//   const isLeft = direction === "LEFT";
-//   const currentShape = getShape(pce);
-//   const len = currentShape.length;
-//   // if ((isLeft && x - 1 < 0) || (!isLeft && x + len > 9)) {
-//   //   return false;
-//   // }
-//   if (isLeft) {
-//     for (let i = 0; i < len; i++) {
-//       if (board[y + i][x - 1] === undefined) {
-//         if (currentShape[i][0] === "e") {
-//           continue;
-//         } else {
-//           return false;
-//         }
-//       }
-//     }
-//   }
-//   if (!isLeft) {
-//     for (let i = 0; i < len; i++) {
-//       if (board[y + i][x + len] === undefined) {
-//         const thing = y + i;
-//         const otherThing = x + len;
-//         console.log(i, thing, otherThing);
-//         const lastColPiece = currentShape[i][len - 1];
-//         // debugger;
-//         if (lastColPiece === "e") {
-//           // debugger;
-//           continue;
-//         } else {
-//           return false;
-//         }
-//       }
-//       return true;
-//     }
-//   }
-//   return true;
-// };
+  if (!willCollide(board, pce)) {
+    return {
+      ...state,
+      playerPiece: {
+        ...pce,
+        y: pce.y + 1
+      }
+    };
+  } else {
+    return { ...state };
+  }
+};
 
 export const willCollide = (board, pce) => {
   const currentShape = getShape(pce);
