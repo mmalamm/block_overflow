@@ -1,4 +1,5 @@
 import PIECES, { getShape } from "./pieces";
+import diffSections from './helpers/diffSections';
 
 export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
@@ -7,22 +8,8 @@ const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
   {}
 );
 
-const diffSections = (boardSection, inputShape) => {
-  const len = inputShape.length;
-  for (let y = 0; y < len; y++) {
-    for (let x = 0; x < len; x++) {
-      if (boardSection[y][x] === undefined) {
-        if (inputShape[y][x] !== 'e') {
-          return false;
-        }
-      }
-      if (boardSection[y][x] !== 'e' && inputShape !== 'e') {
-        return false
-      }
-    }
-  }
-  return true;
-}
+console.log(diffSections);
+
 
 export const createInitalState = () => {
   return {

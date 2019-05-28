@@ -4,7 +4,6 @@ import {
   willCollide,
   createNewBoard,
   createInitalState,
-  // canShift
   shiftLeft,
   shiftRight,
   shiftDown
@@ -38,49 +37,6 @@ const reducers = {
     }
   },
   SHIFT: (state, payload) => {
-    /*
-    const { board, playerPiece } = state;
-    switch (payload) {
-      case "LEFT":
-        if (canShift("LEFT")(board, playerPiece)) {
-          return {
-            ...state,
-            playerPiece: {
-              ...playerPiece,
-              x: playerPiece.x - 1
-            }
-          };
-        } else {
-          return { ...state };
-        }
-      case "RIGHT":
-        if (canShift("RIGHT")(board, playerPiece)) {
-          return {
-            ...state,
-            playerPiece: {
-              ...playerPiece,
-              x: playerPiece.x + 1
-            }
-          };
-        } else {
-          return { ...state };
-        }
-      case "DOWN":
-        if (!willCollide(board, playerPiece)) {
-          return {
-            ...state,
-            playerPiece: {
-              ...playerPiece,
-              y: playerPiece.y + 1
-            }
-          };
-        } else {
-          return { ...state };
-        }
-      default:
-        return { ...state };
-    }
-    */
     return (shiftFns[payload] || (() => null))(state) || { ...state };
   }
 };
