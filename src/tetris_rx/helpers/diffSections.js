@@ -1,30 +1,31 @@
+const compareCells = (bCell, sCell) =>
+  bCell === "#"
+    ? sCell !== "e"
+      ? null
+      : "#"
+    : bCell !== "e" && sCell !== "e"
+    ? null
+    : bCell === "e" && sCell === "e"
+    ? "e"
+    : bCell === "e"
+    ? sCell
+    : bCell;
+
 const diffSections = (boardSection, inputShape) => {
-  const len = inputShape.length;
-  const output = [];
-  for (let y = 0; y < len; y++) {
+  const mergedSection = [];
+  for (let y = 0; y < boardSection.length; y++) {
+    const boardRow = boardSection[y];
     let row = "";
-    for (let x = 0; x < len; x++) {
-      const boardCell = boardSection[y][x],
-        inputShapeCell = inputShape[y][x];
-      if (boardCell === "#") {
-        if (inputShapeCell !== "e") {
-          return null;
-        }
-        row += "#";
-        continue;
-      }
-      if (boardCell !== "e" && inputShapeCell !== "e") {
-        return null;
-      }
-      if (boardCell === "e" && inputShapeCell === "e") {
-        row += "e";
-        continue;
-      }
-      row += (boardCell === "e") ? inputShapeCell : boardCell;
+    for (let x = 0; x < boardRow.length; x++) {
+      const boardCell = boardRow[x];
+      const inputShapeCell = inputShape[y][x];
+      const comparison = compareCells(boardCell, inputShapeCell);
+      if (comparison === null) return null;
+      row += comparison;
     }
-    output.push(row);
+    mergedSection.push(row);
   }
-  return output;
+  return mergedSection;
 };
 
 export default diffSections;

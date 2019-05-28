@@ -3,6 +3,26 @@ import diffSections from "../../helpers/diffSections";
 // diff sections takes in 2 arrays -- section of the board that the piece is trying to move into, and the currentShape
 
 describe('diffSections tests', () => {
+  test('returns merged grid when cells don\'t overlap', () => {
+    const mockInputShape = [
+      `ejj`,
+      `eje`,
+      `eje`
+    ];
+    
+    const boardSection = [
+      `iee`,
+      `iez`,
+      `iez`
+    ]
+    const expectedOutput = [
+      `ijj`,
+      `ijz`,
+      `ijz`
+    ]
+    expect(diffSections(boardSection,
+      mockInputShape)).toEqual(expectedOutput);
+  })
   test('returns null when cells overlap', () => {
     const mockInputShape = [
       `lle`,
