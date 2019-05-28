@@ -1,5 +1,7 @@
-import PIECES, { getShape } from "./pieces";
-import diffSections from './helpers/diffSections';
+// import PIECES, { getShape } from "./pieces";
+import { getShape } from "./helpers/utils";
+import diffSections from "./helpers/diffSections";
+import willCollide from "./helpers/willCollide";
 
 export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
@@ -9,7 +11,6 @@ const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
 );
 
 console.log(diffSections);
-
 
 export const createInitalState = () => {
   return {
@@ -53,7 +54,6 @@ export const shiftLeft = state => {
     }
   };
 };
-
 
 export const shiftRight = state => {
   const { board, playerPiece: pce } = state;
@@ -106,23 +106,6 @@ export const shiftDown = state => {
   }
 };
 
-export const willCollide = (board, pce) => {
-  const currentShape = getShape(pce);
-  const len = currentShape.length;
-  const squareOfNextTick = board
-    .slice(pce.y + 1, pce.y + 1 + len)
-    .map((row, idx) => row.slice(pce.x, pce.x + currentShape[idx].length));
-  for (let i = 0; i < len; i++) {
-    if (!squareOfNextTick[i]) continue;
-    for (let j = 0; j < currentShape[i].length; j++) {
-      if (currentShape[i][j] !== "e" && squareOfNextTick[i][j] !== "e")
-        return true;
-    }
-  }
-  if (pce.y + currentShape.filter(row => row.replace(/e/g, "")).length > 19)
-    return true;
-};
-
 export const createNewBoard = (board, pce) => {
   const newBoard = [...board];
   const currentShape = getShape(pce);
@@ -149,8 +132,8 @@ export const mergeBoard = (board, pce) => {
   ///
   if (!Array.isArray(board)) debugger;
   const newBoard = [...board];
-  if (!PIECES[pce.pieceName]) debugger;
-  const currentShape = PIECES[pce.pieceName].shapes[pce.orientation];
+  // if (!PIECES[pce.pieceName]) debugger;
+  const currentShape = getShape(pce);
   for (let i = 0; i < currentShape.length; i++) {
     if (newBoard[pce.y + i]) {
       newBoard[pce.y + i] =

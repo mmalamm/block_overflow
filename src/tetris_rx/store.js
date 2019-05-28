@@ -1,7 +1,9 @@
 import { createStore } from "redux";
 
+import willCollide from './helpers/willCollide';
+
 import {
-  willCollide,
+  // willCollide,
   createNewBoard,
   createInitalState,
   shiftLeft,

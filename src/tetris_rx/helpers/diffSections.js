@@ -17,9 +17,9 @@ const diffSections = (boardSection, inputShape) => {
     const boardRow = boardSection[y];
     let row = "";
     for (let x = 0; x < boardRow.length; x++) {
-      const boardCell = boardRow[x];
-      const inputShapeCell = inputShape[y][x];
-      const comparison = compareCells(boardCell, inputShapeCell);
+      const boardCell = boardRow[x],
+        inputShapeCell = inputShape[y][x],
+        comparison = compareCells(boardCell, inputShapeCell);
       if (comparison === null) return null;
       row += comparison;
     }

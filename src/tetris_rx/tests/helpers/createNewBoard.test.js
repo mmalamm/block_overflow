@@ -1,5 +1,5 @@
 import { createEmptyBoard, createNewBoard } from "../../helpers";
-import { getShape } from "../../pieces";
+import { getShape } from "../../helpers/utils";
 
 describe("createNewBoard scenarios", () => {
   it("will create new board when piece at bottom of board", () => {

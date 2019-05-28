@@ -1,6 +1,6 @@
-import { createEmptyBoard, willCollide } from "../../helpers";
+import { createEmptyBoard, getShape } from '../../helpers/utils';
 
-import { getShape } from "../../pieces";
+import willCollide from "../../helpers/willCollide";
 
 describe("willCollide tests", () => {
   it("will collide when piece at bottom of board", () => {
