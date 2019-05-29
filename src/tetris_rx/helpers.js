@@ -1,6 +1,7 @@
 // import PIECES, { getShape } from "./pieces";
 import { getShape } from "./helpers/utils";
 import willCollide from "./helpers/willCollide";
+import diffSections from "./helpers/diffSections";
 
 export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
@@ -17,75 +18,6 @@ export const createInitalState = () => {
     score: 0
   };
 };
-
-// export const shiftLeft = state => {
-//   const { board, playerPiece: pce } = state;
-//   const currentShape = getShape(pce);
-//   const len = currentShape.length;
-//   const firstColOfShape = currentShape.map(row => row[0]);
-//   // for wall hits
-//   if (pce.x === 0) {
-//     if (firstColOfShape.every(cell => cell === "e")) {
-//       const newPlayerPiece = { ...pce, offset: 1 };
-//       return { ...state, playerPiece: newPlayerPiece };
-//     } else {
-//       return null;
-//     }
-//   }
-//   // for lateral piece collisions
-//   const colLeftOfShape = board
-//     .slice(pce.y, pce.y + len)
-//     .map(row => row[pce.x - 1]);
-//   for (let i = 0; i < len; i++) {
-//     if (colLeftOfShape[i] !== "e" && firstColOfShape[i] !== "e") {
-//       return null;
-//     }
-//   }
-
-//   return {
-//     ...state,
-//     playerPiece: {
-//       ...pce,
-//       offset: 0,
-//       x: pce.x - 1
-//     }
-//   };
-// };
-
-// export const shiftRight = state => {
-//   const { board, playerPiece: pce } = state;
-//   const currentShape = getShape(pce);
-//   const len = currentShape.length;
-//   const lastColOfShape = currentShape.map(row => row[len - 1]);
-//   // for wall hits
-//   if (pce.x + len > 9) {
-//     if (lastColOfShape.every(cell => cell === "e")) {
-//       const newPlayerPiece = { ...pce, x: pce.x + 1, offset: -1 };
-//       return { ...state, playerPiece: newPlayerPiece };
-//     } else {
-//       return null;
-//     }
-//   }
-//   // for lateral piece collisions
-//   const colRightOfShape = board
-//     .slice(pce.y, pce.y + len)
-//     .map(row => row[pce.x + len]);
-//   for (let i = 0; i < len; i++) {
-//     if (colRightOfShape[i] !== "e" && lastColOfShape[i] !== "e") {
-//       // debugger;
-//       return null;
-//     }
-//   }
-
-//   return {
-//     ...state,
-//     playerPiece: {
-//       ...pce,
-//       offset: 0,
-//       x: pce.x + 1
-//     }
-//   };
-// };
 export const shiftDown = state => {
   const { board, playerPiece: pce } = state;
 
@@ -125,39 +57,38 @@ export const createNewBoard = (board, pce) => {
 };
 
 export const mergeBoard = (board, pce) => {
-  ///
-  // if (!Array.isArray(board)) debugger;
-  // const newBoard = [...board];
-  // // if (!PIECES[pce.pieceName]) debugger;
-  // const currentShape = getShape(pce);
-  // for (let i = 0; i < currentShape.length; i++) {
-  //   if (newBoard[pce.y + i]) {
-  //     newBoard[pce.y + i] =
-  //       newBoard[pce.y + i].slice(0, pce.x) +
-  //       currentShape[i] +
-  //       newBoard[pce.y + i].slice(pce.x + currentShape[i].length);
-  //   }
-  // }
-  // return newBoard;
   const currentShape = getShape(pce);
   const len = currentShape.length;
   const offset = pce.offset;
 
   const replacementRows = (brd => {
-    return brd.slice(pce.y, pce.y + len).map((row, idx, arr) => {
-      // console.log(arr);
-      // debugger;
+    let boardSection;
+    if (offset > 0) {
+      boardSection = brd
+        .slice(pce.y, pce.y + len)
+        .map(row => "#".repeat(offset) + row.slice(0, len - offset));
+      return diffSections(boardSection, currentShape).map((sRow, idx) => {
+        return sRow.slice(offset) + brd[pce.y + idx].slice(len - offset);
+      });
+    }
+    if (pce.x + len > 10) {
+      boardSection = brd.slice(pce.y, pce.y + len).map(row => {
+        return row.slice(pce.x) + "#".repeat(pce.x + len - 10);
+      });
+      return diffSections(boardSection, currentShape).map((sRow, idx) => {
+        return brd[pce.y + idx].slice(0, pce.x) + sRow.replace(/#/g, "");
+      });
+    }
 
-      if (offset > 0) {
-        const cutOff = currentShape[idx].slice(offset);
-        return cutOff + row.slice(cutOff.length - 1);
-      }
-      if (pce.x > 9 - len) {
-        // debugger;
-        const beginning = row.slice(0, pce.x);
-        return beginning + currentShape[idx].slice(0, 10 - beginning.length);
-      }
-      return row.slice(0, pce.x) + currentShape[idx] + row.slice(pce.x + len);
+    boardSection = brd.slice(pce.y, pce.y + len).map(row => {
+      return row.slice(pce.x, pce.x + len);
+    });
+    return diffSections(boardSection, currentShape).map((sRow, idx) => {
+      return (
+        brd[pce.y + idx].slice(0, pce.x) +
+        sRow +
+        brd[pce.y + idx].slice(pce.x + len)
+      );
     });
   })(board);
 
@@ -165,7 +96,6 @@ export const mergeBoard = (board, pce) => {
   const middleArena = replacementRows;
   const endArena = board.slice(pce.y + len);
   console.log({ beginningArena, middleArena, endArena });
-  // debugger;
   return [
     ...board.slice(0, pce.y),
     ...replacementRows,
