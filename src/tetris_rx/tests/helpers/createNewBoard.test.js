@@ -58,4 +58,22 @@ describe("createNewBoard scenarios", () => {
 
     expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
+  it("will create new board when piece has empty row at the bottom", () => {
+    const pieceAtBottom = {
+      pieceName: "S",
+      x: 4,
+      y: 18,
+      orientation: 0
+    };
+
+    const currentBoard = createEmptyBoard()
+      .slice(0, -4)
+      .concat([...Array(4)].map(_ => `eeeeeeeeei`));
+
+    const expectedBoard = createEmptyBoard()
+      .slice(0, -4)
+      .concat([`eeeeeeeeei`, `eeeeeeeeei`, `eeeeesseei`, `eeeesseeei`]);
+
+    expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
+  });
 });

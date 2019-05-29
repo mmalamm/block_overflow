@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
 
 import willCollide from "./helpers/willCollide";
 import shiftLeft from "./helpers/shiftLeft";
@@ -8,9 +8,7 @@ import shiftDown from "./helpers/shiftDown";
 
 import { rotateClockwise, rotateCounterClockwise } from "./helpers/rotate";
 
-import {
-  createInitalState
-} from "./helpers";
+import { createInitalState } from "./helpers";
 
 const initialState = createInitalState();
 const shiftFns = {
@@ -21,7 +19,7 @@ const shiftFns = {
 const rotateFns = {
   CLOCKWISE: rotateClockwise,
   COUNTER_CLOCKWISE: rotateCounterClockwise
-}
+};
 
 const reducers = {
   TICK: state => {
@@ -55,4 +53,16 @@ function tetrisReducer(state = initialState, { type, payload }) {
   return reducers[type] ? reducers[type](state, payload) : state;
 }
 
-export default createStore(tetrisReducer);
+const composeEnhancers =
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware()
+  // other store enhancers if any
+);
+
+export default createStore(tetrisReducer, enhancer);
