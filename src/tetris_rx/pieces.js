@@ -68,4 +68,4 @@ export const COLORS = Object.keys(PIECES).reduce(
 
 export default PIECES;
 
-export const getShape = pce => PIECES[pce.pieceName].shapes[pce.orientation]
+// export const getShape = pce => PIECES[pce.pieceName].shapes[pce.orientation]

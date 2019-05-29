@@ -1,13 +1,21 @@
 import { createStore } from "redux";
 
+import willCollide from "./helpers/willCollide";
+import shiftLeft from "./helpers/shiftLeft";
+import shiftRight from "./helpers/shiftRight";
+import createNewBoard from "./helpers/createNewBoard";
+import shiftDown from "./helpers/shiftDown";
+
 import {
-  willCollide,
-  createNewBoard,
-  createInitalState,
-  canShift
+  createInitalState
 } from "./helpers";
 
 const initialState = createInitalState();
+const shiftFns = {
+  LEFT: shiftLeft,
+  RIGHT: shiftRight,
+  DOWN: shiftDown
+};
 
 const reducers = {
   TICK: state => {
@@ -30,47 +38,7 @@ const reducers = {
     }
   },
   SHIFT: (state, payload) => {
-    const { board, playerPiece } = state;
-    switch (payload) {
-      case "LEFT":
-        if (canShift("LEFT")(board, playerPiece)) {
-          return {
-            ...state,
-            playerPiece: {
-              ...playerPiece,
-              x: playerPiece.x - 1
-            }
-          };
-        } else {
-          return { ...state };
-        }
-      case "RIGHT":
-        if (canShift("RIGHT")(board, playerPiece)) {
-          return {
-            ...state,
-            playerPiece: {
-              ...playerPiece,
-              x: playerPiece.x + 1
-            }
-          };
-        } else {
-          return { ...state };
-        }
-      case "DOWN":
-        if (!willCollide(board, playerPiece)) {
-          return {
-            ...state,
-            playerPiece: {
-              ...playerPiece,
-              y: playerPiece.y + 1
-            }
-          };
-        } else {
-          return { ...state };
-        }
-      default:
-        return { ...state };
-    }
+    return (shiftFns[payload] || (() => null))(state) || { ...state };
   }
 };
 

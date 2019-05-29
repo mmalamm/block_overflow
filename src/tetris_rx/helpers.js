@@ -1,6 +1,5 @@
-import PIECES, { getShape } from "./pieces";
-
-export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
+import { getShape, createEmptyBoard } from "./helpers/utils";
+import diffSections from "./helpers/diffSections";
 
 const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
   (a, l) => ({ ...a, [l]: l }),
@@ -9,114 +8,56 @@ const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
 
 export const createInitalState = () => {
   return {
-    playerPiece: { pieceName: L, x: 4, y: 0, orientation: 0 },
+    playerPiece: { pieceName: J, x: 4, y: 0, orientation: 3, offset: 0 },
     board: createEmptyBoard(),
-    upcomingPieces: [T, I, S, J, O, Z],
+    upcomingPieces: [T, I, S, J, O, Z, L, S],
     score: 0
   };
 };
 
-export const canShift = direction => (board, pce) => {
-  const { y, x } = pce;
-  const isLeft = direction === "LEFT";
-  const currentShape = getShape(pce);
-  const len = currentShape.length;
-  if ((isLeft && x - 1 < 0) || (!isLeft && x + len > 9)) {
-    return false;
-  }
-  if (isLeft) {
-    for (let i = 0; i < len; i++) {
-      if (board[y + i][x - 1] === undefined) {
-        if (currentShape[i][0] === 'e') {
-          continue;
-        } else {
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-};
-// export const canShift = direction => (board, pce) => {
-//   const { y, x } = pce;
-//   const isLeft = direction === "LEFT";
-//   const currentShape = getShape(pce);
-//   const len = currentShape.length;
-//   if ((isLeft && x - 1 < 0) || (!isLeft && x + len + 1 > 9)) {
-//     debugger;
-//     return false;
-//   }
-//   for (let i = 0; i < len; i++) {
-//     if (board[y + i][isLeft ? x - 1 : len + x] === undefined) {
-//       debugger;
-//       if (currentShape[i][isLeft ? 0 : -1] !== "e") {
-//         return false;
-//       } else {
-//         return true;
-//       }
-//     } else if (
-//       board[y + i][isLeft ? 0 : -1] !== "e" &&
-//       currentShape[i][isLeft ? 0 : -1] !== "e"
-//     ) {
-//       return false;
-//     }
-//   }
-//   return true;
-// };
-
-export const willCollide = (board, pce) => {
-  const currentShape = getShape(pce);
-  const len = currentShape.length;
-  const squareOfNextTick = board
-    .slice(pce.y + 1, pce.y + 1 + len)
-    .map((row, idx) => row.slice(pce.x, pce.x + currentShape[idx].length));
-  for (let i = 0; i < len; i++) {
-    if (!squareOfNextTick[i]) continue;
-    for (let j = 0; j < currentShape[i].length; j++) {
-      if (currentShape[i][j] !== "e" && squareOfNextTick[i][j] !== "e")
-        return true;
-    }
-  }
-  if (pce.y + currentShape.filter(row => row.replace(/e/g, "")).length > 19)
-    return true;
-  // console.log("sq:", squareOfNextTick);
-};
-
-export const createNewBoard = (board, pce) => {
-  const newBoard = [...board];
-  const currentShape = getShape(pce);
-  const len = currentShape.length;
-  for (let i = 0; i < len; i++) {
-    const newY = i + pce.y;
-    if (!newBoard[newY]) continue;
-
-    let newRow = board[newY].slice(0, pce.x);
-    for (let j = 0; j < currentShape[i].length; j++) {
-      if (currentShape[i][j] === "e") {
-        newRow += board[newY][pce.x + j];
-      } else if (board[newY][pce.x + j] === "e") {
-        newRow += currentShape[i][j];
-      }
-    }
-    newRow += board[newY].slice(pce.x + len);
-    newBoard[newY] = newRow;
-  }
-  return newBoard;
-};
-
 export const mergeBoard = (board, pce) => {
-  ///
-  if (!Array.isArray(board)) debugger;
-  const newBoard = [...board];
-  if (!PIECES[pce.pieceName]) debugger;
-  const currentShape = PIECES[pce.pieceName].shapes[pce.orientation];
-  for (let i = 0; i < currentShape.length; i++) {
-    if (newBoard[pce.y + i]) {
-      newBoard[pce.y + i] =
-        newBoard[pce.y + i].slice(0, pce.x) +
-        currentShape[i] +
-        newBoard[pce.y + i].slice(pce.x + currentShape[i].length);
+  const currentShape = getShape(pce);
+  const len = currentShape.length;
+  const offset = pce.offset;
+
+  const replacementRows = (brd => {
+    let boardSection;
+    if (offset > 0) {
+      boardSection = brd
+        .slice(pce.y, pce.y + len)
+        .map(row => "#".repeat(offset) + row.slice(0, len - offset));
+      return diffSections(boardSection, currentShape).map((sRow, idx) => {
+        return sRow.slice(offset) + brd[pce.y + idx].slice(len - offset);
+      });
     }
-  }
-  return newBoard;
+    if (pce.x + len > 10) {
+      boardSection = brd.slice(pce.y, pce.y + len).map(row => {
+        return row.slice(pce.x) + "#".repeat(pce.x + len - 10);
+      });
+      return diffSections(boardSection, currentShape).map((sRow, idx) => {
+        return brd[pce.y + idx].slice(0, pce.x) + sRow.replace(/#/g, "");
+      });
+    }
+
+    boardSection = brd.slice(pce.y, pce.y + len).map(row => {
+      return row.slice(pce.x, pce.x + len);
+    });
+    return diffSections(boardSection, currentShape).map((sRow, idx) => {
+      return (
+        brd[pce.y + idx].slice(0, pce.x) +
+        sRow +
+        brd[pce.y + idx].slice(pce.x + len)
+      );
+    });
+  })(board);
+
+  const beginningArena = board.slice(0, pce.y);
+  const middleArena = replacementRows;
+  const endArena = board.slice(pce.y + len);
+  console.log({ beginningArena, middleArena, endArena });
+  return [
+    ...board.slice(0, pce.y),
+    ...replacementRows,
+    ...board.slice(pce.y + len)
+  ];
 };
