@@ -1,9 +1,5 @@
-// import PIECES, { getShape } from "./pieces";
-import { getShape } from "./helpers/utils";
-import willCollide from "./helpers/willCollide";
+import { getShape, createEmptyBoard } from "./helpers/utils";
 import diffSections from "./helpers/diffSections";
-
-export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
 const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
   (a, l) => ({ ...a, [l]: l }),
@@ -17,43 +13,6 @@ export const createInitalState = () => {
     upcomingPieces: [T, I, S, J, O, Z, L, S],
     score: 0
   };
-};
-export const shiftDown = state => {
-  const { board, playerPiece: pce } = state;
-
-  if (!willCollide(board, pce)) {
-    return {
-      ...state,
-      playerPiece: {
-        ...pce,
-        y: pce.y + 1
-      }
-    };
-  } else {
-    return { ...state };
-  }
-};
-
-export const createNewBoard = (board, pce) => {
-  const newBoard = [...board];
-  const currentShape = getShape(pce);
-  const len = currentShape.length;
-  for (let i = 0; i < len; i++) {
-    const newY = i + pce.y;
-    if (!newBoard[newY]) continue;
-
-    let newRow = board[newY].slice(0, pce.x);
-    for (let j = 0; j < currentShape[i].length; j++) {
-      if (currentShape[i][j] === "e") {
-        newRow += board[newY][pce.x + j] || "";
-      } else if (board[newY][pce.x + j] === "e") {
-        newRow += currentShape[i][j];
-      }
-    }
-    newRow += board[newY].slice(pce.x + len);
-    newBoard[newY] = newRow;
-  }
-  return newBoard;
 };
 
 export const mergeBoard = (board, pce) => {

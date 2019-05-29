@@ -3,12 +3,11 @@ import { createStore } from "redux";
 import willCollide from "./helpers/willCollide";
 import shiftLeft from "./helpers/shiftLeft";
 import shiftRight from "./helpers/shiftRight";
+import createNewBoard from "./helpers/createNewBoard";
+import shiftDown from "./helpers/shiftDown";
 
 import {
-  // willCollide,
-  createNewBoard,
-  createInitalState,
-  shiftDown
+  createInitalState
 } from "./helpers";
 
 const initialState = createInitalState();

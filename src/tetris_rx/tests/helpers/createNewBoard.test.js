@@ -1,5 +1,6 @@
-import { createEmptyBoard, createNewBoard } from "../../helpers";
+import { createEmptyBoard } from "../../helpers/utils";
 import { getShape } from "../../helpers/utils";
+import createNewBoard from "../../helpers/createNewBoard";
 
 describe("createNewBoard scenarios", () => {
   it("will create new board when piece at bottom of board", () => {
@@ -53,7 +54,7 @@ describe("createNewBoard scenarios", () => {
 
     const expectedBoard = createEmptyBoard()
       .slice(0, -3)
-      .concat([ `eeeeeeeeej`,`eeeeeeeeej`, `eeeeeeeejj`]);
+      .concat([`eeeeeeeeej`, `eeeeeeeeej`, `eeeeeeeejj`]);
 
     expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
