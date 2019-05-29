@@ -16,7 +16,9 @@ export const createInitalState = () => {
 };
 
 export const mergeBoard = (board, pce) => {
+
   const currentShape = getShape(pce);
+  if (!currentShape) debugger;
   const len = currentShape.length;
   const offset = pce.offset;
 

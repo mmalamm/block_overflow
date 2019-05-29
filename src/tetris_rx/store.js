@@ -6,6 +6,8 @@ import shiftRight from "./helpers/shiftRight";
 import createNewBoard from "./helpers/createNewBoard";
 import shiftDown from "./helpers/shiftDown";
 
+import { rotateClockwise, rotateCounterClockwise } from "./helpers/rotate";
+
 import {
   createInitalState
 } from "./helpers";
@@ -16,6 +18,10 @@ const shiftFns = {
   RIGHT: shiftRight,
   DOWN: shiftDown
 };
+const rotateFns = {
+  CLOCKWISE: rotateClockwise,
+  COUNTER_CLOCKWISE: rotateCounterClockwise
+}
 
 const reducers = {
   TICK: state => {
@@ -39,6 +45,9 @@ const reducers = {
   },
   SHIFT: (state, payload) => {
     return (shiftFns[payload] || (() => null))(state) || { ...state };
+  },
+  ROTATE: (state, payload) => {
+    return (rotateFns[payload] || (() => null))(state) || state;
   }
 };
 
