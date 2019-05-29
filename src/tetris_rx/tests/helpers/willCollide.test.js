@@ -38,4 +38,15 @@ describe("willCollide tests", () => {
 
     expect(willCollide(mockBoard, mockPlayerPiece)).toBeTruthy();
   });
+  it("when piece is 2 units away from bottom edge of shape", () => {
+    const mockBoard = createEmptyBoard();
+    const mockPlayerPiece = {
+      pieceName: "I",
+      x: 4,
+      y: 18,
+      orientation: 0
+    };
+
+    expect(willCollide(mockBoard, mockPlayerPiece)).toBeFalsy();
+  });
 });

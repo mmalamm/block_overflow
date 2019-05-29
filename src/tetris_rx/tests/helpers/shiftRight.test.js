@@ -1,4 +1,5 @@
-import { createEmptyBoard, shiftRight } from "../../helpers";
+import shiftRight from "../../helpers/shiftRight";
+import { createEmptyBoard } from "../../helpers/utils";
 describe("shiftRight tests", () => {
   test("returns null at right wall when piece orientation is at edge", () => {
     const emptyBoard = createEmptyBoard();
@@ -33,6 +34,23 @@ describe("shiftRight tests", () => {
       orientation: 3
     };
     const newState = shiftRight({ board: emptyBoard, playerPiece });
-    expect(newState.playerPiece).toEqual({ ...playerPiece, x: 8, offset: -1 });
+    expect(newState.playerPiece).toEqual({ ...playerPiece, x: 8 });
+  });
+  test("returns offsetted piece state at right wall when piece orientation is not at its edge", () => {
+    const emptyBoard = createEmptyBoard();
+    const playerPiece = {
+      pieceName: "J",
+      x: 7,
+      y: 8,
+      orientation: 3
+    };
+    const newState = shiftRight({ board: emptyBoard, playerPiece });
+    expect(newState.playerPiece).toEqual({ ...playerPiece, x: 8 });
+  });
+  test("blah blah", () => {
+    const emptyBoard = createEmptyBoard();
+    const playerPiece = {pieceName: "J", x: 7, y: 2, orientation: 3, offset: 0};
+    const newState = shiftRight({ board: emptyBoard, playerPiece });
+    expect(newState.playerPiece).toEqual({ ...playerPiece, x: 8 });
   });
 });

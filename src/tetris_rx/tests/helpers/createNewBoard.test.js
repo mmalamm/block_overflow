@@ -41,4 +41,20 @@ describe("createNewBoard scenarios", () => {
 
     expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
+  it("will create new board when piece is offsetted on right corner", () => {
+    const pieceAtBottom = {
+      pieceName: "J",
+      x: 8,
+      y: 17,
+      orientation: 3
+    };
+
+    const currentBoard = createEmptyBoard();
+
+    const expectedBoard = createEmptyBoard()
+      .slice(0, -3)
+      .concat([ `eeeeeeeeej`,`eeeeeeeeej`, `eeeeeeeejj`]);
+
+    expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
+  });
 });

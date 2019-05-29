@@ -1,13 +1,13 @@
 import { createStore } from "redux";
 
-import willCollide from './helpers/willCollide';
+import willCollide from "./helpers/willCollide";
+import shiftLeft from "./helpers/shiftLeft";
+import shiftRight from "./helpers/shiftRight";
 
 import {
   // willCollide,
   createNewBoard,
   createInitalState,
-  shiftLeft,
-  shiftRight,
   shiftDown
 } from "./helpers";
 

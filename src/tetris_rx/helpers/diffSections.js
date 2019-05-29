@@ -1,15 +1,15 @@
-const compareCells = (bCell, sCell) =>
-  bCell === "#"
-    ? sCell !== "e"
+const compareCells = (boardCell, shapeCell) =>
+  boardCell === "#"
+    ? shapeCell !== "e"
       ? null
       : "#"
-    : bCell !== "e" && sCell !== "e"
+    : boardCell !== "e" && shapeCell !== "e"
     ? null
-    : bCell === "e" && sCell === "e"
+    : boardCell === "e" && shapeCell === "e"
     ? "e"
-    : bCell === "e"
-    ? sCell
-    : bCell;
+    : boardCell === "e"
+    ? shapeCell
+    : boardCell;
 
 const diffSections = (boardSection, inputShape) => {
   const mergedSection = [];

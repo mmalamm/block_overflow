@@ -11,6 +11,17 @@ import { COLORS } from "./tetris_rx/pieces";
 
 window.store = store;
 
+const emojis = {
+  e: 'e',
+  i: '🦋',
+  j: '👖',
+  l: '🍊',
+  o: '🌝',
+  s: '🍏',
+  t: '🍆',
+  z: '🍎'
+}
+
 export default function App() {
   const [state, setState] = useState(store.getState());
   useEffect(() => {
@@ -42,7 +53,7 @@ export default function App() {
           {row.split("").map((ltr, idx) => {
             return (
               <div key={idx} className={styles.cell} style={{ color: COLORS[ltr]}}>
-                {ltr}
+                {emojis[ltr]}
               </div>
             );
           })}
