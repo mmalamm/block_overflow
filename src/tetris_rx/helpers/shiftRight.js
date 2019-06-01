@@ -8,13 +8,9 @@ const shiftRight = state => {
 
   let boardSection;
   if (pce.x + len > 9) {
-    // boardSection = board
-    // .slice(pce.y, pce.y + len)
-    // .map(row => row.slice(pce.x + 1) + "#".repeat(pce.x + len - 9));
     boardSection = board
       .slice(pce.y, pce.y + len)
       .map(row => row.slice(pce.x + 1) + "#".repeat(pce.x + len - 9));
-    // debugger;
     if (diffSections(boardSection, currentShape)) {
       const newPlayerPiece = { ...pce, x: pce.x + 1 };
       return { ...state, playerPiece: newPlayerPiece };
@@ -26,8 +22,6 @@ const shiftRight = state => {
   boardSection = board
     .slice(pce.y, pce.y + len)
     .map(row => row.slice(pce.x + 1, pce.x + 1 + len));
-  // console.log(boardSection);
-  // debugger;
 
   if (diffSections(boardSection, currentShape)) {
     return {
