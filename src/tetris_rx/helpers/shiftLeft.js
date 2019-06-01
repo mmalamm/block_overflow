@@ -5,7 +5,6 @@ const shiftLeft = state => {
   const { board, playerPiece: pce } = state;
   const currentShape = getShape(pce);
   const len = currentShape.length;
-
   let boardSection;
   if (pce.x === 0) {
     if (pce.offset === 0) {
@@ -21,7 +20,7 @@ const shiftLeft = state => {
     }
 
     if (pce.offset === 1) {
-      boardSection = board.slice(pce.y, pce.y + len - 2).map(row => `##${row}`);
+      boardSection = board.slice(pce.y, pce.y + len).map(row => `##${row[0]}`);
       if (diffSections(boardSection, currentShape)) {
         const newPlayerPiece = { ...pce, offset: 2 };
         return { ...state, playerPiece: newPlayerPiece };

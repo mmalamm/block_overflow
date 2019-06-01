@@ -8,11 +8,11 @@ import shiftDown from "./helpers/shiftDown";
 
 import { rotateClockwise, rotateCounterClockwise } from "./helpers/rotate";
 
-import { createInitalState3 } from "./helpers";
+import { createInitalState } from "./helpers";
 
 import tickReducer from "./tickReducer";
 
-const initialState = createInitalState3();
+const initialState = createInitalState();
 const shiftFns = {
   LEFT: shiftLeft,
   RIGHT: shiftRight,

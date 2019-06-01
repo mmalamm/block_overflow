@@ -28,34 +28,18 @@ const rotate = direction => state => {
     boardSection = brd
       .slice(pce.y, pce.y + len)
       .map(row => "#".repeat(offset) + row.slice(0, len - offset));
-    return diffSections(boardSection, nextShape)
-      ? {
-          ...state,
-          playerPiece: {
-            ...pce,
-            orientation: newOrientation
-          }
-        }
-      : null;
-  }
-  if (pce.x + len > 10) {
+  } else if (pce.x + len > 10) {
     boardSection = brd.slice(pce.y, pce.y + len).map(row => {
       return row.slice(pce.x) + "#".repeat(pce.x + len - 10);
     });
-    return diffSections(boardSection, nextShape)
-      ? {
-          ...state,
-          playerPiece: {
-            ...pce,
-            orientation: newOrientation
-          }
-        }
-      : null;
+  } else {
+    boardSection = brd.slice(pce.y, pce.y + len).map(row => {
+      return row.slice(pce.x, pce.x + len);
+    });
   }
-
-  boardSection = brd.slice(pce.y, pce.y + len).map(row => {
-    return row.slice(pce.x, pce.x + len);
-  });
+  while (boardSection.length < len) {
+    boardSection.push("#".repeat(len));
+  }
   return diffSections(boardSection, nextShape)
     ? {
         ...state,
@@ -65,7 +49,6 @@ const rotate = direction => state => {
         }
       }
     : null;
-
   // if (diffSections(boardSection, getShape({ ...pce, orientation: (pce.orientation + 1) % 4 })))
 };
 

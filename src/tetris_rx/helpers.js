@@ -10,40 +10,43 @@ export const createInitalState = () => {
   return {
     playerPiece: { pieceName: J, x: 4, y: 0, orientation: 3, offset: 0 },
     board: createEmptyBoard(),
-    upcomingPieces: [T, I, S, J, O, Z, L, S],
+    upcomingPieces: [T, I, S, J, O, Z, L, S]
+      .join("")
+      .repeat(100)
+      .split(""),
     score: 0
   };
 };
 export const createInitalState2 = () => {
   return {
     playerPiece: {
-      pieceName: 'J',
-      x: 0,
-      y: 8,
-      orientation: 1,
-      offset: 1
+      pieceName: "Z",
+      x: 4,
+      y: 2,
+      orientation: 0,
+      offset: 0
     },
     board: [
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeooeeeeee',
-      'eeooelllee',
-      'eetttlssee',
-      'eootzsseee',
-      'eoozzijjje',
-      'essztillje',
-      'sszttijlie',
-      'izzstijlie',
-      'izzssjjlie',
-      'izztsoolie',
-      'iztttoolle'
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeleeeee",
+      "eeeeleeeee",
+      "eeeelleeee",
+      "ejjeooeeie",
+      "ejseoozeie",
+      "tjsslzziie",
+      "ttsslziiie",
+      "tzsslliije",
+      "zztsooiije",
+      "ztttooijje"
     ],
     upcomingPieces: [T, O, I, L, J, L, I, T],
     score: 0
