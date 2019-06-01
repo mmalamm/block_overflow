@@ -12,24 +12,25 @@ import { COLORS } from "./tetris_rx/pieces";
 window.store = store;
 
 const emojis = {
-  e: "e",
+  e: "◼",
   i: "🦋",
   j: "👖",
   l: "🍊",
   o: "🌝",
   s: "🍏",
   t: "🍆",
-  z: "🍎"
+  z: "🍎",
+  g: "⬛️"
 };
 
-const SHIFT = 'SHIFT';
-const RIGHT = 'RIGHT';
-const LEFT = 'LEFT';
-const DOWN = 'DOWN';
-const UP = 'UP';
-const ROTATE = 'ROTATE';
-const CLOCKWISE = 'CLOCKWISE';
-const COUNTER_CLOCKWISE = 'COUNTER_CLOCKWISE';
+const SHIFT = "SHIFT";
+const RIGHT = "RIGHT";
+const LEFT = "LEFT";
+const DOWN = "DOWN";
+const UP = "UP";
+const ROTATE = "ROTATE";
+const CLOCKWISE = "CLOCKWISE";
+const COUNTER_CLOCKWISE = "COUNTER_CLOCKWISE";
 
 const keyMapper = {
   39: {
@@ -56,7 +57,7 @@ const keyMapper = {
     type: ROTATE,
     payload: CLOCKWISE
   }
-}
+};
 
 export default function App() {
   const [state, setState] = useState(store.getState());
@@ -66,7 +67,7 @@ export default function App() {
     fromEvent(document, "keydown").subscribe(e => {
       const action = keyMapper[e.keyCode];
       if (action) {
-        store.dispatch(action)
+        store.dispatch(action);
       }
     });
   }, []);

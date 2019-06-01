@@ -63,7 +63,7 @@ export const COLORS = Object.keys(PIECES).reduce(
     const key = l.toLowerCase();
     return { ...a, [key]: PIECES[l].color };
   },
-  { e: "#222" }
+  { e: "#010101" }
 );
 
 export default PIECES;

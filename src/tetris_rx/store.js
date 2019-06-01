@@ -2,6 +2,7 @@ import { createStore, compose, applyMiddleware } from "redux";
 
 import shiftLeft from "./helpers/shiftLeft";
 import shiftRight from "./helpers/shiftRight";
+import shiftUp from "./helpers/shiftUp";
 
 import shiftDown from "./helpers/shiftDown";
 
@@ -15,7 +16,8 @@ const initialState = createInitalState3();
 const shiftFns = {
   LEFT: shiftLeft,
   RIGHT: shiftRight,
-  DOWN: shiftDown
+  DOWN: shiftDown,
+  UP: shiftUp
 };
 const rotateFns = {
   CLOCKWISE: rotateClockwise,

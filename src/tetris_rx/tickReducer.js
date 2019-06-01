@@ -29,7 +29,7 @@ export default state => {
         pieceName: nextPieceName,
         x: 4,
         y: 0,
-        orientation: 1,
+        orientation: 0,
         offset: 0
       },
       board: newBoard,
