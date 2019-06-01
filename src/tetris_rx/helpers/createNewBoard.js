@@ -1,7 +1,3 @@
-/**
- *
- */
-
 import { getShape } from "./utils";
 export const createNewBoard = (board, pce) => {
   const newBoard = [...board];

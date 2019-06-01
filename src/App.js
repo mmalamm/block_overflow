@@ -71,7 +71,7 @@ export default function App() {
     });
   }, []);
 
-  const { board, playerPiece } = state;
+  const { board, playerPiece, score } = state;
   return (
     <div className={styles.App}>
       <div className={styles.row}>
@@ -99,6 +99,7 @@ export default function App() {
           {idx}
         </div>
       ))}
+      <h2>{score}</h2>
     </div>
   );
 }

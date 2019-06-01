@@ -53,4 +53,10 @@ describe("shiftRight tests", () => {
     const newState = shiftRight({ board: emptyBoard, playerPiece });
     expect(newState.playerPiece).toEqual({ ...playerPiece, x: 8 });
   });
+  test("offsetted piece by left edge shifts right correctly", () => {
+    const emptyBoard = createEmptyBoard();
+    const playerPiece = {pieceName: "I", x: 0, y: 4, orientation: 1, offset: 1};
+    const newState = shiftRight({ board: emptyBoard, playerPiece });
+    expect(newState.playerPiece).toEqual({ ...playerPiece, offset: 0 });
+  });
 });

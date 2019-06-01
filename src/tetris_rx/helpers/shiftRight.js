@@ -29,7 +29,7 @@ const shiftRight = state => {
       playerPiece: {
         ...pce,
         offset: pce.offset ? pce.offset - 1 : 0,
-        x: pce.x + 1
+        x: pce.offset ? 0 : pce.x + 1
       }
     };
   } else {
