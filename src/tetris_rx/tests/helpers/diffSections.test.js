@@ -78,4 +78,20 @@ describe('diffSections tests', () => {
     expect(diffSections(boardSection,
       mockInputShape)).toEqual(expectedOutput);
   })
+
+  test('case to rename', () => {
+    const mockInputShape = ["ese", "ess", "ees"];
+    const boardSection = [
+      `#ee`,
+      `#ee`,
+      `#ee`
+    ];
+    const expectedOutput = [
+      `#se`,
+      `#ss`,
+      `#es`
+    ]
+    expect(diffSections(boardSection,
+      mockInputShape)).toEqual(expectedOutput);
+  })
 })

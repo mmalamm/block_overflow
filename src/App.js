@@ -64,8 +64,6 @@ export default function App() {
     store.subscribe(_ => setState(store.getState()));
     interval(750).subscribe(() => store.dispatch({ type: "TICK" }));
     fromEvent(document, "keydown").subscribe(e => {
-      // console.log(e.keyCode);
-      // debugger;
       const action = keyMapper[e.keyCode];
       if (action) {
         store.dispatch(action)

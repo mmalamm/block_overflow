@@ -76,4 +76,61 @@ describe("createNewBoard scenarios", () => {
 
     expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
+  it("weird case I'm trying to figure out", () => {
+    const pieceToCollide = {
+      pieceName: 'J',
+      x: 0,
+      y: 11,
+      orientation: 1,
+      offset: 1
+    };
+
+    const currentBoard = [
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeooeeeeee',
+      'eeooelllee',
+      'eetttlssee',
+      'eootzsseee',
+      'eoozzijjje',
+      'essztillje',
+      'sszttijlie',
+      'izzstijlie',
+      'izzssjjlie',
+      'izztsoolie',
+      'iztttoolle'
+    ];
+
+    const expectedBoard = [
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeooeeeeee',
+      'eeooelllee',
+      'jjtttlssee',
+      'jootzsseee',
+      'joozzijjje',
+      'essztillje',
+      'sszttijlie',
+      'izzstijlie',
+      'izzssjjlie',
+      'izztsoolie',
+      'iztttoolle'
+    ];
+
+    expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
+  });
 });

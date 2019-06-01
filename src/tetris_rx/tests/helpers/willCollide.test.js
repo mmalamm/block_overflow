@@ -5,48 +5,168 @@ import willCollide from "../../helpers/willCollide";
 describe("willCollide tests", () => {
   it("will collide when piece at bottom of board", () => {
     const emptyBoard = createEmptyBoard();
-    for (let i = 0; i < 4; i++) {
-      const yCoordinate =
-        20 -
-        getShape({ pieceName: "L", orientation: i }).filter(
-          row => row.replace(/e/g, "").length
-        ).length;
-      const pieceAtBottom = {
-        pieceName: "L",
-        x: 4,
-        y: yCoordinate,
-        orientation: i
-      };
-      expect(willCollide(emptyBoard, pieceAtBottom)).toBeTruthy();
-    }
-
     expect(
-      willCollide(emptyBoard, { pieceName: "L", orientation: 0, x: 4, y: 17 })
+      willCollide(emptyBoard, { pieceName: "L", orientation: 0, x: 4, y: 17, offset: 0 })
     ).toBeFalsy();
   });
-
   it("will collide when piece overlaps with another piece", () => {
-    const mockBoard = createEmptyBoard()
+    const fixtureBoard = createEmptyBoard()
       .slice(0, 18)
       .concat([`eeeeeeleee`, `eeeellleee`]);
-    const mockPlayerPiece = {
+    const fixturePlayerPiece = {
       pieceName: "Z",
       x: 4,
       y: 16,
+      offset: 0,
       orientation: 0
     };
 
-    expect(willCollide(mockBoard, mockPlayerPiece)).toBeTruthy();
+    expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeTruthy();
+  });
+  
+  it("when offset is 2 and is descending towards adjacent piece", () => {
+    const fixtureBoard = [
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeesszee',
+      'ejjjsszzej',
+      'eoojelzssj',
+      'eoolllssjj'
+    ];
+    const fixturePlayerPiece = {
+      pieceName: 'I',
+      x: 0,
+      y: 13,
+      orientation: 1,
+      offset: 2
+    };
+
+    expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeFalsy();
+  });
+  it("when offset is 2 and is at the left side corner ready to be set", () => {
+    const fixtureBoard = [
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeesszee',
+      'ejjjsszzej',
+      'eoojelzssj',
+      'eoolllssjj'
+    ];
+    const fixturePlayerPiece = {
+      pieceName: 'I',
+      x: 0,
+      y: 16,
+      orientation: 1,
+      offset: 2
+    };
+
+    expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeTruthy();
+  });
+  it("when offset is 2 and is moving past adjacent piece", () => {
+    const fixtureBoard = [
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeesszee',
+      'ejjjsszzej',
+      'eoojelzssj',
+      'eoolllssjj'
+    ];
+    const fixturePlayerPiece = {
+      pieceName: 'I',
+      x: 0,
+      y: 14,
+      orientation: 1,
+      offset: 2
+    };
+
+    expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeFalsy();
   });
   it("when piece is 2 units away from bottom edge of shape", () => {
-    const mockBoard = createEmptyBoard();
-    const mockPlayerPiece = {
+    const fixtureBoard = createEmptyBoard();
+    const fixturePlayerPiece = {
       pieceName: "I",
       x: 4,
       y: 18,
+      offset: 0,
       orientation: 0
     };
 
-    expect(willCollide(mockBoard, mockPlayerPiece)).toBeFalsy();
+    expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeTruthy();
   });
+  it("returns appropriately for offsetted pieces", () => {
+    const fixtureBoard =[
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'ejeeeeeese',
+      'ejeeeeetss',
+      'jjeeeettts'
+    ];
+    const fixturePlayerPiece = {
+      pieceName: 'I',
+      x: 2,
+      y: 18,
+      orientation: 0,
+      offset: 0
+    };
+
+    expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeTruthy();
+  });
+  
 });

@@ -1,16 +1,17 @@
 import { createStore, compose, applyMiddleware } from "redux";
 
-import willCollide from "./helpers/willCollide";
 import shiftLeft from "./helpers/shiftLeft";
 import shiftRight from "./helpers/shiftRight";
-import createNewBoard from "./helpers/createNewBoard";
+
 import shiftDown from "./helpers/shiftDown";
 
 import { rotateClockwise, rotateCounterClockwise } from "./helpers/rotate";
 
-import { createInitalState } from "./helpers";
+import { createInitalState3 } from "./helpers";
 
-const initialState = createInitalState();
+import tickReducer from "./tickReducer";
+
+const initialState = createInitalState3();
 const shiftFns = {
   LEFT: shiftLeft,
   RIGHT: shiftRight,
@@ -22,25 +23,7 @@ const rotateFns = {
 };
 
 const reducers = {
-  TICK: state => {
-    const { board, playerPiece, upcomingPieces } = state;
-    if (willCollide(board, playerPiece)) {
-      const newUpcomingPieces = upcomingPieces.slice();
-      const nextPieceName = newUpcomingPieces.pop();
-      if (!nextPieceName) debugger;
-      return {
-        ...state,
-        playerPiece: { pieceName: nextPieceName, x: 4, y: 0, orientation: 0 },
-        board: createNewBoard(board, playerPiece),
-        upcomingPieces: newUpcomingPieces
-      };
-    } else {
-      return {
-        ...state,
-        playerPiece: { ...playerPiece, y: playerPiece.y + 1 }
-      };
-    }
-  },
+  TICK: tickReducer,
   SHIFT: (state, payload) => {
     return (shiftFns[payload] || (() => null))(state) || { ...state };
   },
