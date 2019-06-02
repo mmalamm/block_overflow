@@ -1,5 +1,5 @@
 todos:
-[] upcoming pieces
-[] ghost
-[] start game/loss detection
-[] code clean up (!!)
+- [ ] upcoming pieces
+- [ ] ghost
+- [ ] start game/loss detection
+- [ ] code clean up (!!)
