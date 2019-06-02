@@ -46,4 +46,76 @@ describe("ticks correctly", () => {
     };
     expect(tickReducer(inputState)).toEqual(expectedOutputState);
   });
+  it("case to be named", () => {
+    const playerPiece = {
+      pieceName: "L",
+      x: 4,
+      y: 0,
+      offset: 0,
+      orientation: 1
+    };
+    const upcomingPieces = ["J", "T", "O", "I", "Z", "S"];
+    const newState = tickReducer({
+      board: [
+        'eeeeeeeeee',
+        'eeeeeeeeee',
+        'eeeeeeeeee',
+        'eeeeesseee',
+        'eeeesseeee',
+        'eeeeeteeee',
+        'eeeettteee',
+        'eeeeiiiiee',
+        'eeeeesseee',
+        'eeeesseeee',
+        'eeeejeeeee',
+        'eeeejjjeee',
+        'eeeeooeeee',
+        'eeeeooeeee',
+        'eeeeeseeee',
+        'eeeeesseee',
+        'eeeejeseee',
+        'eeeejjjeze',
+        'leetoolzze',
+        'lettoolzse'
+      ],
+      playerPiece,
+      upcomingPieces,
+      score: 0
+    });
+
+    const expectedNewState = {
+      board: [
+        'eeeeeleeee',
+        'eeeeeleeee',
+        'eeeeelleee',
+        'eeeeesseee',
+        'eeeesseeee',
+        'eeeeeteeee',
+        'eeeettteee',
+        'eeeeiiiiee',
+        'eeeeesseee',
+        'eeeesseeee',
+        'eeeejeeeee',
+        'eeeejjjeee',
+        'eeeeooeeee',
+        'eeeeooeeee',
+        'eeeeeseeee',
+        'eeeeesseee',
+        'eeeejeseee',
+        'eeeejjjeze',
+        'leetoolzze',
+        'lettoolzse'
+      ],
+      playerPiece: {
+        pieceName: "S",
+        x: 4,
+        y: 0,
+        orientation: 0,
+        offset: 0
+      },
+      upcomingPieces: upcomingPieces.slice(0, upcomingPieces.length - 1),
+      score: 0
+    };
+    expect(newState).toEqual(expectedNewState);
+  });
 });
