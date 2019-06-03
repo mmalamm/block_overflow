@@ -26,23 +26,6 @@ const rotate = direction => state => {
 
   const boardSection = createBoardSection(brd, { offset, x, y, length: len });
 
-  // let boardSection;
-  // if (offset > 0) {
-  //   boardSection = brd
-  //     .slice(pce.y, pce.y + len)
-  //     .map(row => "#".repeat(offset) + row.slice(0, len - offset));
-  // } else if (pce.x + len > 10) {
-  //   boardSection = brd.slice(pce.y, pce.y + len).map(row => {
-  //     return row.slice(pce.x) + "#".repeat(pce.x + len - 10);
-  //   });
-  // } else {
-  //   boardSection = brd.slice(pce.y, pce.y + len).map(row => {
-  //     return row.slice(pce.x, pce.x + len);
-  //   });
-  // }
-  // while (boardSection.length < len) {
-  //   boardSection.push("#".repeat(len));
-  // }
   return diffSections(boardSection, nextShape)
     ? {
         ...state,

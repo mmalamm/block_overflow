@@ -19,6 +19,7 @@ describe("shiftRight tests", () => {
       pieceName: "S",
       x: 4,
       y: 17,
+      offset: 0,
       orientation: 0
     };
     expect(
@@ -31,6 +32,7 @@ describe("shiftRight tests", () => {
       pieceName: "J",
       x: 7,
       y: 8,
+      offset: 0,
       orientation: 3
     };
     const newState = shiftRight({ board: emptyBoard, playerPiece });
@@ -42,6 +44,7 @@ describe("shiftRight tests", () => {
       pieceName: "J",
       x: 7,
       y: 8,
+      offset: 0,
       orientation: 3
     };
     const newState = shiftRight({ board: emptyBoard, playerPiece });
