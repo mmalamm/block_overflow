@@ -1,27 +1,19 @@
 import { getShape } from "./utils";
 import diffSections from "./diffSections";
+import createBoardSection from "./createBoardSection";
 
 const shiftRight = state => {
   const { board, playerPiece: pce } = state;
+  const { offset, x, y } = pce;
   const currentShape = getShape(pce);
   const len = currentShape.length;
 
-  let boardSection;
-  if (pce.x + len > 9) {
-    boardSection = board
-      .slice(pce.y, pce.y + len)
-      .map(row => row.slice(pce.x + 1) + "#".repeat(pce.x + len - 9));
-    if (diffSections(boardSection, currentShape)) {
-      const newPlayerPiece = { ...pce, x: pce.x + 1 };
-      return { ...state, playerPiece: newPlayerPiece };
-    } else {
-      return null;
-    }
-  }
-
-  boardSection = board
-    .slice(pce.y, pce.y + len)
-    .map(row => row.slice(pce.x + 1, pce.x + 1 + len));
+  const boardSection = createBoardSection(board, {
+    offset,
+    x: x + 1,
+    y,
+    length: len
+  });
 
   if (diffSections(boardSection, currentShape)) {
     return {
