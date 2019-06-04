@@ -1,4 +1,4 @@
-import willCollide from "./willCollide";
+import { willCollide } from "../../helpers/";
 const shiftDown = state => {
   const { board, playerPiece: pce } = state;
 

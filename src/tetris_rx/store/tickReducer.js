@@ -1,6 +1,4 @@
-import setPieceAndUpdate from "./helpers/setPieceAndUpdate";
-import willCollide from "./helpers/willCollide";
-
+import { setPieceAndUpdate, willCollide } from "../helpers/";
 
 export default state => {
   const { board, playerPiece } = state;
