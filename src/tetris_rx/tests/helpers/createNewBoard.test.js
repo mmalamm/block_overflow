@@ -133,4 +133,61 @@ describe("createNewBoard scenarios", () => {
 
     expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
   });
+  it("weird bug i found", () => {
+    const pieceToCollide = {
+      pieceName: 'Z',
+      x: 5,
+      y: 8,
+      orientation: 1,
+      offset: 0
+    };
+
+    const currentBoard =  [
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeetee',
+      'eeeeeettee',
+      'eeeesestle',
+      'eeeessssle',
+      'eeeeeszsll',
+      'eooeizzjjj',
+      'eooeizsstj',
+      'elllissttj',
+      'elssizootj',
+      'esslzzoojj'
+    ];
+
+    const expectedBoard = [
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeeeee',
+      'eeeeeeezee',
+      'eeeeeezzee',
+      'eeeeeeztee',
+      'eeeeeettee',
+      'eeeesestle',
+      'eeeessssle',
+      'eeeeeszsll',
+      'eooeizzjjj',
+      'eooeizsstj',
+      'elllissttj',
+      'elssizootj',
+      'esslzzoojj'
+    ];
+
+    expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
+  });
 });

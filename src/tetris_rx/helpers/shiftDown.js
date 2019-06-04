@@ -1,5 +1,4 @@
 import willCollide from "./willCollide";
-import setPieceAndUpdate from "./setPieceAndUpdate";
 const shiftDown = state => {
   const { board, playerPiece: pce } = state;
 
@@ -12,7 +11,7 @@ const shiftDown = state => {
       }
     };
   } else {
-    return setPieceAndUpdate(state);
+    return state;
   }
 };
 
