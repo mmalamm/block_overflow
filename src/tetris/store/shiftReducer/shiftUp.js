@@ -1,5 +1,5 @@
-import willCollide from "./willCollide";
-import setPieceAndUpdate from "./setPieceAndUpdate";
+import willCollide from "../../helpers/willCollide";
+import setPieceAndUpdate from "../../helpers/setPieceAndUpdate";
 const shiftUp = state => {
   const { board, playerPiece: pce } = state;
   const { y } = pce;
@@ -8,7 +8,7 @@ const shiftUp = state => {
     tempY++;
   }
 
-  return setPieceAndUpdate({...state, playerPiece: { ...pce, y: tempY }})
+  return setPieceAndUpdate({ ...state, playerPiece: { ...pce, y: tempY } });
 };
 
 export default shiftUp;

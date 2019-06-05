@@ -10,67 +10,16 @@ export const createInitalState = () => {
   return {
     playerPiece: { pieceName: J, x: 4, y: 0, orientation: 3, offset: 0 },
     board: createEmptyBoard(),
-    upcomingPieces: [T, I, S, J, O, Z, L, S]
+    upcomingPieces: [T, I, S, J, O, Z, L]
       .join("")
       .repeat(100)
       .split(""),
     score: 0
   };
 };
-export const createInitalState2 = () => {
-  return {
-    playerPiece: {
-      pieceName: "Z",
-      x: 4,
-      y: 2,
-      orientation: 0,
-      offset: 0
-    },
-    board: [
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeeeeeee",
-      "eeeeleeeee",
-      "eeeeleeeee",
-      "eeeelleeee",
-      "ejjeooeeie",
-      "ejseoozeie",
-      "tjsslzziie",
-      "ttsslziiie",
-      "tzsslliije",
-      "zztsooiije",
-      "ztttooijje"
-    ],
-    upcomingPieces: [T, O, I, L, J, L, I, T],
-    score: 0
-  };
-};
-
-export const createInitalState3 = () => {
-  return {
-    playerPiece: {
-      pieceName: "I",
-      x: 4,
-      y: 0,
-      offset: 0,
-      orientation: 1
-    },
-    board: createEmptyBoard(),
-    upcomingPieces: "IJLOSTZ".repeat(100).split(""),
-    score: 0
-  };
-};
 
 export const mergeBoard = (board, pce) => {
   const currentShape = getShape(pce);
-  if (!currentShape) debugger;
   const len = currentShape.length;
   const offset = pce.offset;
 

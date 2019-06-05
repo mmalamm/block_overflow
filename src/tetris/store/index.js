@@ -1,37 +1,17 @@
 import { createStore, compose, applyMiddleware } from "redux";
 
-import shiftLeft from "./helpers/shiftLeft";
-import shiftRight from "./helpers/shiftRight";
-import shiftUp from "./helpers/shiftUp";
-
-import shiftDown from "./helpers/shiftDown";
-
-import { rotateClockwise, rotateCounterClockwise } from "./helpers/rotate";
-
-import { createInitalState } from "./helpers";
+import { createInitalState } from "../helpers";
 
 import tickReducer from "./tickReducer";
+import shiftReducer from "./shiftReducer/";
+import rotateReducer from "./rotateReducer/";
 
 const initialState = createInitalState();
-const shiftFns = {
-  LEFT: shiftLeft,
-  RIGHT: shiftRight,
-  DOWN: shiftDown,
-  UP: shiftUp
-};
-const rotateFns = {
-  CLOCKWISE: rotateClockwise,
-  COUNTER_CLOCKWISE: rotateCounterClockwise
-};
 
 const reducers = {
   TICK: tickReducer,
-  SHIFT: (state, payload) => {
-    return (shiftFns[payload] || (() => null))(state) || { ...state };
-  },
-  ROTATE: (state, payload) => {
-    return (rotateFns[payload] || (() => null))(state) || state;
-  }
+  SHIFT: shiftReducer,
+  ROTATE: rotateReducer
 };
 
 function tetrisReducer(state = initialState, { type, payload }) {

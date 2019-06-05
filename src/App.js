@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-import { mergeBoard } from "./tetris_rx/helpers";
+import { mergeBoard } from "./tetris/helpers";
 
 import styles from "./App.module.css";
 
-import store from "./tetris_rx/store";
+import store from "./tetris/store/";
 import { interval, fromEvent } from "rxjs";
-import { COLORS } from "./tetris_rx/pieces";
+import { COLORS } from "./tetris/pieces";
 
 window.store = store;
 
@@ -63,7 +63,7 @@ export default function App() {
   const [state, setState] = useState(store.getState());
   useEffect(() => {
     store.subscribe(_ => setState(store.getState()));
-    interval(750).subscribe(() => store.dispatch({ type: "TICK" }));
+    interval(2000).subscribe(() => store.dispatch({ type: "TICK" }));
     fromEvent(document, "keydown").subscribe(e => {
       const action = keyMapper[e.keyCode];
       if (action) {

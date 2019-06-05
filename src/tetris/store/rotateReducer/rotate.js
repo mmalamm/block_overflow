@@ -1,6 +1,8 @@
-import diffSections from "./diffSections";
-import createBoardSection from "./createBoardSection";
-import { getShape } from "./utils";
+// import diffSections from "./diffSections";
+// import createBoardSection from "../../helpers/createBoardSection";
+import diffSections from "../../helpers/diffSections";
+import createBoardSection from "../../helpers/createBoardSection";
+import { getShape } from "../../helpers/utils";
 
 const rotationMapper = {
   CLOCKWISE: 1,
