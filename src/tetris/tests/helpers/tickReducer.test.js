@@ -1,4 +1,4 @@
-import tickReducer from "../../store/tickReducer";
+import tickReducer from "../../store/tickReducer"
 describe("ticks correctly", () => {
   it("ticks right when offset of playerPiece is 2", () => {
     const inputState = {

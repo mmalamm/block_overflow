@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-import { mergeBoard } from "./tetris_rx/helpers";
+import { mergeBoard } from "./tetris/helpers";
 
 import styles from "./App.module.css";
 
-import store from "./tetris_rx/store/";
+import store from "./tetris/store/";
 import { interval, fromEvent } from "rxjs";
-import { COLORS } from "./tetris_rx/pieces";
+import { COLORS } from ./tetris/piecess";
 
 window.store = store;
 

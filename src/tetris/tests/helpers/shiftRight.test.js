@@ -1,4 +1,4 @@
-import shiftRight from "../../helpers/shiftRight";
+import shiftRight from "../../store/shiftReducer/shiftRight";
 import { createEmptyBoard } from "../../helpers/utils";
 describe("shiftRight tests", () => {
   test("returns null at right wall when piece orientation is at edge", () => {
@@ -52,13 +52,25 @@ describe("shiftRight tests", () => {
   });
   test("blah blah", () => {
     const emptyBoard = createEmptyBoard();
-    const playerPiece = {pieceName: "J", x: 7, y: 2, orientation: 3, offset: 0};
+    const playerPiece = {
+      pieceName: "J",
+      x: 7,
+      y: 2,
+      orientation: 3,
+      offset: 0
+    };
     const newState = shiftRight({ board: emptyBoard, playerPiece });
     expect(newState.playerPiece).toEqual({ ...playerPiece, x: 8 });
   });
   test("offsetted piece by left edge shifts right correctly", () => {
     const emptyBoard = createEmptyBoard();
-    const playerPiece = {pieceName: "I", x: 0, y: 4, orientation: 1, offset: 1};
+    const playerPiece = {
+      pieceName: "I",
+      x: 0,
+      y: 4,
+      orientation: 1,
+      offset: 1
+    };
     const newState = shiftRight({ board: emptyBoard, playerPiece });
     expect(newState.playerPiece).toEqual({ ...playerPiece, offset: 0 });
   });

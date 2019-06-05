@@ -1,6 +1,7 @@
 // import diffSections from "./diffSections";
 // import createBoardSection from "../../helpers/createBoardSection";
-import { diffSections, createBoardSection } from "../../helpers/";
+import diffSections from "../../helpers/diffSections";
+import createBoardSection from "../../helpers/createBoardSection";
 import { getShape } from "../../helpers/utils";
 
 const rotationMapper = {

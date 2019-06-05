@@ -1,4 +1,4 @@
-import shiftUp from "../../helpers/shiftUp";
+import shiftUp from "../../store/shiftReducer/shiftUp";
 import { createEmptyBoard } from "../../helpers/utils";
 describe("shiftUp tests", () => {
   it("sets piece correctly when shifts up", () => {
@@ -34,7 +34,7 @@ describe("shiftUp tests", () => {
     };
     expect(newState).toEqual(expectedNewState);
   });
-  it("case to be named", () => {
+  xit("case to be named", () => {
     const playerPiece = {
       pieceName: "L",
       x: 4,

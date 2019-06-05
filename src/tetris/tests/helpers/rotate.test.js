@@ -1,4 +1,4 @@
-import { rotateClockwise } from "../../helpers/rotate";
+import { rotateClockwise } from "../../store/rotateReducer/rotate";
 import { createEmptyBoard } from "../../helpers/utils";
 
 describe("rotate tests", () => {
