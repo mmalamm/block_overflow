@@ -1,22 +1,6 @@
-import { getShape, createEmptyBoard } from "./helpers/utils";
-import diffSections from "./helpers/diffSections";
+import { getShape } from "./tetris/helpers/utils";
+import diffSections from "./tetris/helpers/diffSections";
 
-const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
-  (a, l) => ({ ...a, [l]: l }),
-  {}
-);
-
-export const createInitalState = () => {
-  return {
-    playerPiece: { pieceName: J, x: 4, y: 0, orientation: 3, offset: 0 },
-    board: createEmptyBoard(),
-    upcomingPieces: [T, I, S, J, O, Z, L]
-      .join("")
-      .repeat(100)
-      .split(""),
-    score: 0
-  };
-};
 
 export const mergeBoard = (board, pce) => {
   const currentShape = getShape(pce);

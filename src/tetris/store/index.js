@@ -1,12 +1,12 @@
+import createInitialState from "../createInitialState";
 import { createStore, compose, applyMiddleware } from "redux";
 
-import { createInitalState } from "../helpers";
 
 import tickReducer from "./tickReducer";
 import shiftReducer from "./shiftReducer/";
 import rotateReducer from "./rotateReducer/";
 
-const initialState = createInitalState();
+const initialState = createInitialState();
 
 const reducers = {
   TICK: tickReducer,

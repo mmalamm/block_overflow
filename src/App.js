@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-import { mergeBoard } from "./tetris/helpers";
+import { mergeBoard } from "./helpers";
 
 import styles from "./App.module.css";
 
