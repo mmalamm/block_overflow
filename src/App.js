@@ -7,7 +7,7 @@ import styles from "./App.module.css";
 
 import store from "./tetris/store/";
 import { interval, fromEvent } from "rxjs";
-import { COLORS } from ./tetris/piecess";
+import { COLORS } from "./tetris/pieces";
 
 window.store = store;
 
