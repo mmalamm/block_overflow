@@ -168,5 +168,11 @@ describe("willCollide tests", () => {
 
     expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeTruthy();
   });
+  it("this should be true june14th", () => {
+    const fixtureBoard =["eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","eeeeeeeeee","ooeezeeeee","ooezzeeeee","lllzteeeei","lsstteeeei","sszztejeli","ooszzejeli","lesizztssi","istlllejzi","tsslooezzi"];
+    const fixturePlayerPiece = {pieceName: "S", x: 2, y: 10, orientation: 0, offset: 0};
+
+    expect(willCollide(fixtureBoard, fixturePlayerPiece)).toBeTruthy();
+  });
   
 });

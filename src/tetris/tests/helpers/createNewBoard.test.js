@@ -78,7 +78,7 @@ describe("createNewBoard scenarios", () => {
   });
   it("weird case I'm trying to figure out", () => {
     const pieceToCollide = {
-      pieceName: 'J',
+      pieceName: "J",
       x: 0,
       y: 11,
       orientation: 1,
@@ -86,106 +86,163 @@ describe("createNewBoard scenarios", () => {
     };
 
     const currentBoard = [
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeooeeeeee',
-      'eeooelllee',
-      'eetttlssee',
-      'eootzsseee',
-      'eoozzijjje',
-      'essztillje',
-      'sszttijlie',
-      'izzstijlie',
-      'izzssjjlie',
-      'izztsoolie',
-      'iztttoolle'
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeooeeeeee",
+      "eeooelllee",
+      "eetttlssee",
+      "eootzsseee",
+      "eoozzijjje",
+      "essztillje",
+      "sszttijlie",
+      "izzstijlie",
+      "izzssjjlie",
+      "izztsoolie",
+      "iztttoolle"
     ];
 
     const expectedBoard = [
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeooeeeeee',
-      'eeooelllee',
-      'jjtttlssee',
-      'jootzsseee',
-      'joozzijjje',
-      'essztillje',
-      'sszttijlie',
-      'izzstijlie',
-      'izzssjjlie',
-      'izztsoolie',
-      'iztttoolle'
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeooeeeeee",
+      "eeooelllee",
+      "jjtttlssee",
+      "jootzsseee",
+      "joozzijjje",
+      "essztillje",
+      "sszttijlie",
+      "izzstijlie",
+      "izzssjjlie",
+      "izztsoolie",
+      "iztttoolle"
     ];
 
     expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
   });
   it("weird bug i found", () => {
     const pieceToCollide = {
-      pieceName: 'Z',
+      pieceName: "Z",
       x: 5,
       y: 8,
       orientation: 1,
       offset: 0
     };
 
-    const currentBoard =  [
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeetee',
-      'eeeeeettee',
-      'eeeesestle',
-      'eeeessssle',
-      'eeeeeszsll',
-      'eooeizzjjj',
-      'eooeizsstj',
-      'elllissttj',
-      'elssizootj',
-      'esslzzoojj'
+    const currentBoard = [
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeetee",
+      "eeeeeettee",
+      "eeeesestle",
+      "eeeessssle",
+      "eeeeeszsll",
+      "eooeizzjjj",
+      "eooeizsstj",
+      "elllissttj",
+      "elssizootj",
+      "esslzzoojj"
     ];
 
     const expectedBoard = [
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeeeee',
-      'eeeeeeezee',
-      'eeeeeezzee',
-      'eeeeeeztee',
-      'eeeeeettee',
-      'eeeesestle',
-      'eeeessssle',
-      'eeeeeszsll',
-      'eooeizzjjj',
-      'eooeizsstj',
-      'elllissttj',
-      'elssizootj',
-      'esslzzoojj'
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeezee",
+      "eeeeeezzee",
+      "eeeeeeztee",
+      "eeeeeettee",
+      "eeeesestle",
+      "eeeessssle",
+      "eeeeeszsll",
+      "eooeizzjjj",
+      "eooeizsstj",
+      "elllissttj",
+      "elssizootj",
+      "esslzzoojj"
+    ];
+
+    expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
+  });
+  it("LATEST BUG", () => {
+    const pieceToCollide = {
+      pieceName: 'S',
+      x: 2,
+      y: 10,
+      orientation: 0,
+      offset: 0
+    };
+
+    const currentBoard = [
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "ooeezeeeee",
+      "ooezzeeeee",
+      "lllzteeeei",
+      "lsstteeeei",
+      "sszztejeli",
+      "ooszzejeli",
+      "lesizztssi",
+      "istlllejzi",
+      "tsslooezzi"
+    ];
+
+    const expectedBoard = [
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeeeeeeeee",
+      "eeesseeeee",
+      "oosszeeeee",
+      "ooezzeeeee",
+      "lllzteeeei",
+      "lsstteeeei",
+      "sszztejeli",
+      "ooszzejeli",
+      "lesizztssi",
+      "istlllejzi",
+      "tsslooezzi"
     ];
 
     expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);

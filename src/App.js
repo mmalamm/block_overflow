@@ -63,7 +63,7 @@ export default function App() {
   const [state, setState] = useState(store.getState());
   useEffect(() => {
     store.subscribe(_ => setState(store.getState()));
-    interval(2000).subscribe(() => store.dispatch({ type: "TICK" }));
+    interval(500).subscribe(() => store.dispatch({ type: "TICK" }));
     fromEvent(document, "keydown").subscribe(e => {
       const action = keyMapper[e.keyCode];
       if (action) {

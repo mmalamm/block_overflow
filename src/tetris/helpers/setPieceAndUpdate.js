@@ -5,7 +5,7 @@ const bonusMap = [0, 10, 25, 45, 70];
 export default ({ board, playerPiece, upcomingPieces, score }) => {
   const newUpcomingPieces = upcomingPieces.slice();
   const nextPieceName = newUpcomingPieces.pop();
-  if (!nextPieceName) debugger;
+  // if (!nextPieceName) debugger;
 
   const tickedBoard = createNewBoard(board, playerPiece);
 
