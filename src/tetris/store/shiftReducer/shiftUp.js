@@ -3,7 +3,7 @@ import setPieceAndUpdate from "../../helpers/setPieceAndUpdate";
 const shiftUp = state => {
   const { board, playerPiece: pce } = state;
   const { y } = pce;
-  let tempY = y + 1;
+  let tempY = y;
   while (!willCollide(board, { ...pce, y: tempY })) {
     tempY++;
   }
