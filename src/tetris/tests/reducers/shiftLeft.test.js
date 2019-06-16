@@ -1,4 +1,4 @@
-import shiftLeft from "../../store/shiftReducer/shiftLeft";
+import shiftLeft from "../../store/reducer/shiftReducer/shiftLeft";
 import { createEmptyBoard } from "../../helpers/utils";
 describe("shiftLeft tests", () => {
   test("null when piece orientation is at edge", () => {

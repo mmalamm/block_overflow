@@ -1,4 +1,4 @@
-import shiftRight from "../../store/shiftReducer/shiftRight";
+import shiftRight from "../../store/reducer/shiftReducer/shiftRight";
 import { createEmptyBoard } from "../../helpers/utils";
 describe("shiftRight tests", () => {
   test("returns null at right wall when piece orientation is at edge", () => {
