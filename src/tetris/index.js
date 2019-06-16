@@ -60,7 +60,7 @@ class Tetris {
       this.store.dispatch({
         type: TICK
       });
-    }, 1000);
+    }, 500);
   }
 }
 

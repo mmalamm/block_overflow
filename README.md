@@ -1,6 +1,11 @@
 todos:
-- [ ] abstract createBoardSection
-- [ ] upcoming pieces
-- [ ] ghost
+
+#### Game logic
 - [ ] start game/loss detection
-- [ ] code clean up (!!)
+- [ ] create levels*
+
+#### GUI
+- [ ] create gui
+- [ ] upcoming pieces
+- [ ] ghost*
+- [ ] animations*
