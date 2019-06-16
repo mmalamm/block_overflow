@@ -13,7 +13,6 @@ export const mergeBoard = (board, pce) => {
       boardSection = brd
         .slice(pce.y, pce.y + len)
         .map(row => "#".repeat(offset) + row.slice(0, len - offset));
-      if (!diffSections(boardSection, currentShape)) debugger;
       return diffSections(boardSection, currentShape).map((sRow, idx) => {
         return sRow.slice(offset) + brd[pce.y + idx].slice(len - offset);
       });

@@ -31,7 +31,6 @@ export const createNewBoard = (board, pce) => {
       newRow += board[newY].slice(x + len);
     }
 
-    if (newRow.length < 10) debugger;
 
     newBoard[newY] = newRow;
   }

@@ -5,11 +5,9 @@ import { mergeBoard } from "./helpers";
 
 import styles from "./App.module.css";
 
-import store from "./tetris/store/";
-import { interval, fromEvent } from "rxjs";
 import { COLORS } from "./tetris/pieces";
 
-window.store = store;
+import Tetris from "./tetris";
 
 const emojis = {
   e: "◼",
@@ -23,53 +21,16 @@ const emojis = {
   g: "⬛️"
 };
 
-const SHIFT = "SHIFT";
-const RIGHT = "RIGHT";
-const LEFT = "LEFT";
-const DOWN = "DOWN";
-const UP = "UP";
-const ROTATE = "ROTATE";
-const CLOCKWISE = "CLOCKWISE";
-const COUNTER_CLOCKWISE = "COUNTER_CLOCKWISE";
-
-const keyMapper = {
-  39: {
-    type: SHIFT,
-    payload: RIGHT
-  },
-  37: {
-    type: SHIFT,
-    payload: LEFT
-  },
-  40: {
-    type: SHIFT,
-    payload: DOWN
-  },
-  38: {
-    type: SHIFT,
-    payload: UP
-  },
-  78: {
-    type: ROTATE,
-    payload: COUNTER_CLOCKWISE
-  },
-  77: {
-    type: ROTATE,
-    payload: CLOCKWISE
-  }
-};
+const tetris = new Tetris();
 
 export default function App() {
-  const [state, setState] = useState(store.getState());
+  const [state, setState] = useState(tetris.getState());
   useEffect(() => {
-    store.subscribe(_ => setState(store.getState()));
-    interval(500).subscribe(() => store.dispatch({ type: "TICK" }));
-    fromEvent(document, "keydown").subscribe(e => {
-      const action = keyMapper[e.keyCode];
-      if (action) {
-        store.dispatch(action);
-      }
-    });
+    tetris.start();
+    tetris.subscribe(setState);
+    document.addEventListener('keydown', e => {
+      tetris.pressKey(e);
+    })
   }, []);
 
   const { board, playerPiece, score } = state;

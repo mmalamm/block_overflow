@@ -1,5 +1,5 @@
-import { getShape } from "../../helpers/utils";
-import diffSections from "../../helpers/diffSections";
+import { getShape } from "../../../helpers/utils";
+import diffSections from "../../../helpers/diffSections";
 
 const shiftLeft = state => {
   const { board, playerPiece: pce } = state;
