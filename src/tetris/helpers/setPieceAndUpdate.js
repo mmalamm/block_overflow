@@ -2,7 +2,13 @@ import createNewBoard from "./createNewBoard";
 
 const bonusMap = [0, 10, 25, 45, 70];
 
-export default ({ board, playerPiece, upcomingPieces, score }) => {
+const checkIfIsOver = (brd, pcs) => {
+  if (brd[0].replace(/e/g, "").length) return true;
+  return false;
+};
+
+export default (state) => {
+  const { board, playerPiece, upcomingPieces, score } = state;
   const newUpcomingPieces = upcomingPieces.slice();
   const nextPieceName = newUpcomingPieces.pop();
 
@@ -19,6 +25,12 @@ export default ({ board, playerPiece, upcomingPieces, score }) => {
 
   const newScore = score + bonusMap[numRowsCleared];
 
+  if (checkIfIsOver(newBoard, newUpcomingPieces)) {
+    return {
+      ...state,
+      isStarted: false
+    };
+  }
   return {
     playerPiece: {
       pieceName: nextPieceName,
@@ -29,6 +41,7 @@ export default ({ board, playerPiece, upcomingPieces, score }) => {
     },
     board: newBoard,
     upcomingPieces: newUpcomingPieces,
-    score: newScore
+    score: newScore,
+    isStarted: true
   };
-}
+};

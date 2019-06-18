@@ -1,5 +1,6 @@
 import createStore from "./store/createStore";
 
+const START = "START";
 const SHIFT = "SHIFT";
 const TICK = "TICK";
 const RIGHT = "RIGHT";
@@ -56,7 +57,15 @@ class Tetris {
     }
   }
   start() {
-    setInterval(() => {
+    this.store.dispatch({
+      type: START
+    });
+    this.subscribe(state => {
+      if (!state.isStarted) {
+        clearInterval(this.gameInterval);
+      }
+    });
+    this.gameInterval = setInterval(() => {
       this.store.dispatch({
         type: TICK
       });

@@ -1,7 +1,6 @@
 import { getShape } from "./tetris/helpers/utils";
 import diffSections from "./tetris/helpers/diffSections";
 
-
 export const mergeBoard = (board, pce) => {
   const currentShape = getShape(pce);
   const len = currentShape.length;
@@ -29,6 +28,7 @@ export const mergeBoard = (board, pce) => {
     boardSection = brd.slice(pce.y, pce.y + len).map(row => {
       return row.slice(pce.x, pce.x + len);
     });
+    if (diffSections(boardSection, currentShape) === null) debugger;
     return diffSections(boardSection, currentShape).map((sRow, idx) => {
       return (
         brd[pce.y + idx].slice(0, pce.x) +

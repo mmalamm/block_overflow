@@ -13,7 +13,8 @@ const createInitialState = () => {
       .join("")
       .repeat(100)
       .split(""),
-    score: 0
+    score: 0,
+    isStarted: null
   };
 };
 
