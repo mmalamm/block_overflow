@@ -51,10 +51,18 @@ class Tetris {
     return this.store.getState();
   }
   pressKey(e) {
+    clearTimeout(this.currentTickTimeout);
     const action = keyMapper[e.keyCode];
     if (action) {
       this.store.dispatch(action);
     }
+    this.currentTickTimeout = setTimeout(this.tick, 500);
+  }
+  tick = () => {
+    this.store.dispatch({
+      type: TICK
+    })
+    this.currentTickTimeout = setTimeout(this.tick, 500)
   }
   start() {
     this.store.dispatch({
@@ -62,14 +70,10 @@ class Tetris {
     });
     this.subscribe(state => {
       if (!state.isStarted) {
-        clearInterval(this.gameInterval);
+        clearTimeout(this.currentTickTimeout);
       }
     });
-    this.gameInterval = setInterval(() => {
-      this.store.dispatch({
-        type: TICK
-      });
-    }, 500);
+    this.currentTickTimeout = setTimeout(this.tick, 500);
   }
 }
 

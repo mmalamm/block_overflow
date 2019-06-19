@@ -1,13 +1,24 @@
 import createNewBoard from "./createNewBoard";
+import createBoardSection from "./createBoardSection";
+import { getShape } from "./utils";
+import diffSections from "./diffSections";
 
 const bonusMap = [0, 10, 25, 45, 70];
 
-const checkIfIsOver = (brd, pcs) => {
-  if (brd[0].replace(/e/g, "").length) return true;
-  return false;
+const checkIfIsOver = (brd, nextPce) => {
+  const { offset, x, y } = nextPce;
+  const currentShape = getShape(nextPce);
+  const len = currentShape.length;
+  const boardSection = createBoardSection(brd, {
+    offset,
+    x,
+    y,
+    length: len
+  });
+  return !diffSections(boardSection, currentShape);
 };
 
-export default (state) => {
+export default state => {
   const { board, playerPiece, upcomingPieces, score } = state;
   const newUpcomingPieces = upcomingPieces.slice();
   const nextPieceName = newUpcomingPieces.pop();
@@ -25,20 +36,22 @@ export default (state) => {
 
   const newScore = score + bonusMap[numRowsCleared];
 
-  if (checkIfIsOver(newBoard, newUpcomingPieces)) {
+  const nextPlayerPiece = {
+    pieceName: nextPieceName,
+    x: 4,
+    y: 0,
+    orientation: 0,
+    offset: 0
+  };
+
+  if (checkIfIsOver(newBoard, nextPlayerPiece)) {
     return {
       ...state,
       isStarted: false
     };
   }
   return {
-    playerPiece: {
-      pieceName: nextPieceName,
-      x: 4,
-      y: 0,
-      orientation: 0,
-      offset: 0
-    },
+    playerPiece: nextPlayerPiece,
     board: newBoard,
     upcomingPieces: newUpcomingPieces,
     score: newScore,
