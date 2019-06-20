@@ -1,18 +1,19 @@
 import { createEmptyBoard } from "./helpers/utils";
-
-const { I, S, J, L, O, T, Z } = [..."IJLOSTZ"].reduce(
-  (a, l) => ({ ...a, [l]: l }),
-  {}
-);
+import sequences from "./sequences";
 
 const createInitialState = () => {
+  const upcomingPieces = sequences[0].repeat(2).split("");
+  const firstPieceName = upcomingPieces.pop();
   return {
-    playerPiece: { pieceName: J, x: 4, y: 0, orientation: 3, offset: 0 },
+    playerPiece: {
+      pieceName: firstPieceName,
+      x: 4,
+      y: 0,
+      orientation: 0,
+      offset: 0
+    },
     board: createEmptyBoard(),
-    upcomingPieces: [T, I, S, J, O, Z, L]
-      .join("")
-      .repeat(100)
-      .split(""),
+    upcomingPieces,
     score: 0,
     isStarted: null,
     level: 0

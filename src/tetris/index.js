@@ -1,4 +1,5 @@
 import createStore from "./store/createStore";
+import { rotate } from "./store/reducer/rotateReducer";
 
 const START = "START";
 const SHIFT = "SHIFT";
@@ -39,8 +40,17 @@ const keyMapper = {
 };
 
 class Tetris {
-  constructor() {
+  constructor(initTimeoutLength) {
+    this.initTimeoutLength = initTimeoutLength;
     this.store = createStore();
+
+    ///
+    window.store = this.store;
+    ///
+
+    this.currentTickTimeoutId = null;
+    this.currentLevel = null;
+    this.timeoutLength = null;
   }
   subscribe(callback) {
     this.store.subscribe(_ => {
@@ -50,30 +60,51 @@ class Tetris {
   getState() {
     return this.store.getState();
   }
+  isStarted() {
+    const { isStarted } = this.store.getState();
+    return isStarted;
+  }
+  canRotate(state, payload) {
+    return !!rotate(state, payload);
+  }
   pressKey(e) {
-    clearTimeout(this.currentTickTimeout);
+    if (!this.isStarted()) return;
     const action = keyMapper[e.keyCode];
     if (action) {
       this.store.dispatch(action);
+      if (
+        action.type === ROTATE &&
+        this.canRotate(this.getState(), action.payload)
+      ) {
+        clearTimeout(this.currentTickTimeoutId);
+        this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
+      }
     }
-    this.currentTickTimeout = setTimeout(this.tick, 500);
   }
   tick = () => {
+    if (!this.isStarted()) return;
     this.store.dispatch({
       type: TICK
-    })
-    this.currentTickTimeout = setTimeout(this.tick, 500)
-  }
+    });
+    clearTimeout(this.currentTickTimeoutId);
+    this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
+  };
   start() {
     this.store.dispatch({
       type: START
     });
     this.subscribe(state => {
       if (!state.isStarted) {
-        clearTimeout(this.currentTickTimeout);
+        clearTimeout(this.currentTickTimeoutId);
+        return;
+      }
+      if (this.currentLevel !== state.level) {
+        this.currentLevel = state.level;
+        this.timeoutLength =
+          this.initTimeoutLength * Math.pow(0.9, this.currentLevel);
       }
     });
-    this.currentTickTimeout = setTimeout(this.tick, 500);
+    this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
   }
 }
 

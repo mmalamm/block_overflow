@@ -21,15 +21,27 @@ const emojis = {
   g: "⬛️"
 };
 
-const tetris = new Tetris();
+let tetris = new Tetris(500);
 
 export default function App() {
   const [state, setState] = useState(tetris.getState());
+
+  const { board, playerPiece, score, isStarted, level } = state;
+
   useEffect(() => {
     tetris.subscribe(setState);
-    document.addEventListener("keydown", e => {
+    const keydownCallback = e => {
+      if (e.key === "Enter" && !tetris.getState().isStarted) {
+        startGame();
+        return;
+      }
       tetris.pressKey(e);
-    });
+    };
+    document.addEventListener("keydown", keydownCallback);
+    return () => {
+      tetris = null;
+      document.removeEventListener("keydown", keydownCallback);
+    };
   }, []);
 
   const renderGameboard = () => {
@@ -60,7 +72,8 @@ export default function App() {
             {idx}
           </div>
         ))}
-        <h2>{score}</h2>
+        <h2 style={{ color: "green" }}>score: {score}</h2>
+        <h2 style={{ color: "blue" }}>level {level}</h2>
       </div>
     );
   };
@@ -69,11 +82,13 @@ export default function App() {
     tetris.start();
   };
 
-  const { board, playerPiece, score, isStarted } = state;
-
   return isStarted ? (
     renderGameboard()
   ) : (
-    <button onClick={startGame}>start game</button>
+    <>
+      <button onClick={startGame}>start game</button>
+      <h2 style={{ color: "green" }}>score: {score}</h2>
+      <h2 style={{ color: "blue" }}>level {level}</h2>
+    </>
   );
 }

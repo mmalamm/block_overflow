@@ -1,11 +1,15 @@
 todos:
 
 #### Game logic
-- [ ] start game/loss detection
-- [ ] create levels*
+- [x] start game/loss detection
+- [x] create levels*
+- [ ] abstract keyboard controls
+- [ ] add touch events
+- [ ] code cleanup
 
 #### GUI
 - [ ] create gui
 - [ ] upcoming pieces
 - [ ] ghost*
-- [ ] animations*
+- [ ] animations?*
+- [ ] `requestAnimationFrame` and/or `canvas`*

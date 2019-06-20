@@ -2,6 +2,7 @@ import createNewBoard from "./createNewBoard";
 import createBoardSection from "./createBoardSection";
 import { getShape } from "./utils";
 import diffSections from "./diffSections";
+import sequences from "../sequences";
 
 const bonusMap = [0, 10, 25, 45, 70];
 
@@ -20,10 +21,13 @@ const checkIfIsOver = (brd, nextPce) => {
 
 const getNewLevel = (lvl, pcs) => (pcs.length ? lvl : lvl + 1);
 
+const getNewUpcomingPieces = (lvl, pcs) =>
+  pcs.length ? pcs.slice() : sequences[lvl % 4].repeat(2).split("");
+
 export default state => {
   const { board, playerPiece, upcomingPieces, score, level } = state;
   const newLevel = getNewLevel(level, upcomingPieces);
-  const newUpcomingPieces = upcomingPieces.slice();
+  const newUpcomingPieces = getNewUpcomingPieces(level, upcomingPieces);
   const nextPieceName = newUpcomingPieces.pop();
 
   const tickedBoard = createNewBoard(board, playerPiece);
@@ -37,7 +41,8 @@ export default state => {
     ...clearedBoard
   ];
 
-  const newScore = score + bonusMap[numRowsCleared];
+  const newScore =
+    score + bonusMap[numRowsCleared] + numRowsCleared * level * 5;
 
   const nextPlayerPiece = {
     pieceName: nextPieceName,

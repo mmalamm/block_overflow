@@ -5,8 +5,10 @@ const rotateFns = {
   COUNTER_CLOCKWISE: rotateCounterClockwise
 };
 
-const rotateReducer = (state, payload) => {
-  return (rotateFns[payload] || (() => null))(state) || state;
+export const rotate = (state, payload) => {
+  return rotateFns[payload](state);
 };
 
-export default rotateReducer;
+export default (state, payload) => {
+  return rotate(state, payload) || state;
+};
