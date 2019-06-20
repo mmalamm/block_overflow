@@ -18,8 +18,11 @@ const checkIfIsOver = (brd, nextPce) => {
   return !diffSections(boardSection, currentShape);
 };
 
+const getNewLevel = (lvl, pcs) => (pcs.length ? lvl : lvl + 1);
+
 export default state => {
-  const { board, playerPiece, upcomingPieces, score } = state;
+  const { board, playerPiece, upcomingPieces, score, level } = state;
+  const newLevel = getNewLevel(level, upcomingPieces);
   const newUpcomingPieces = upcomingPieces.slice();
   const nextPieceName = newUpcomingPieces.pop();
 
@@ -47,14 +50,21 @@ export default state => {
   if (checkIfIsOver(newBoard, nextPlayerPiece)) {
     return {
       ...state,
+      playerPiece: nextPlayerPiece,
+      board: newBoard,
+      upcomingPieces: newUpcomingPieces,
+      score: newScore,
+      level: newLevel,
       isStarted: false
     };
   }
   return {
+    ...state,
     playerPiece: nextPlayerPiece,
     board: newBoard,
     upcomingPieces: newUpcomingPieces,
     score: newScore,
-    isStarted: true
+    isStarted: true,
+    level: newLevel
   };
 };

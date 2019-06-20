@@ -15,7 +15,9 @@ describe("shiftUp tests", () => {
       board: emptyBoard,
       playerPiece,
       upcomingPieces,
-      score: 0
+      score: 0,
+      level: 0,
+      isStarted: true
     });
 
     const expectedNewState = {
@@ -30,11 +32,13 @@ describe("shiftUp tests", () => {
         offset: 0
       },
       upcomingPieces: upcomingPieces.slice(0, upcomingPieces.length - 1),
-      score: 0
+      score: 0,
+      level: 0,
+      isStarted: true
     };
     expect(newState).toEqual(expectedNewState);
   });
-  it("case to be named", () => {
+  it("end of game detection", () => {
     const playerPiece = {
       pieceName: "L",
       x: 4,
@@ -45,54 +49,56 @@ describe("shiftUp tests", () => {
     const upcomingPieces = ["J", "T", "O", "I", "Z", "S"];
     const newState = shiftUp({
       board: [
-        'eeeeeeeeee',
-        'eeeeeeeeee',
-        'eeeeeeeeee',
-        'eeeeesseee',
-        'eeeesseeee',
-        'eeeeeteeee',
-        'eeeettteee',
-        'eeeeiiiiee',
-        'eeeeesseee',
-        'eeeesseeee',
-        'eeeejeeeee',
-        'eeeejjjeee',
-        'eeeeooeeee',
-        'eeeeooeeee',
-        'eeeeeseeee',
-        'eeeeesseee',
-        'eeeejeseee',
-        'eeeejjjeze',
-        'leetoolzze',
-        'lettoolzse'
+        "eeeeeeeeee",
+        "eeeeeeeeee",
+        "eeeeeeeeee",
+        "eeeeesseee",
+        "eeeesseeee",
+        "eeeeeteeee",
+        "eeeettteee",
+        "eeeeiiiiee",
+        "eeeeesseee",
+        "eeeesseeee",
+        "eeeejeeeee",
+        "eeeejjjeee",
+        "eeeeooeeee",
+        "eeeeooeeee",
+        "eeeeeseeee",
+        "eeeeesseee",
+        "eeeejeseee",
+        "eeeejjjeze",
+        "leetoolzze",
+        "lettoolzse"
       ],
       playerPiece,
       upcomingPieces,
-      score: 0
+      score: 0,
+      level: 0,
+      isStarted: true
     });
 
     const expectedNewState = {
       board: [
-        'eeeeeleeee',
-        'eeeeeleeee',
-        'eeeeelleee',
-        'eeeeesseee',
-        'eeeesseeee',
-        'eeeeeteeee',
-        'eeeettteee',
-        'eeeeiiiiee',
-        'eeeeesseee',
-        'eeeesseeee',
-        'eeeejeeeee',
-        'eeeejjjeee',
-        'eeeeooeeee',
-        'eeeeooeeee',
-        'eeeeeseeee',
-        'eeeeesseee',
-        'eeeejeseee',
-        'eeeejjjeze',
-        'leetoolzze',
-        'lettoolzse'
+        "eeeeeleeee",
+        "eeeeeleeee",
+        "eeeeelleee",
+        "eeeeesseee",
+        "eeeesseeee",
+        "eeeeeteeee",
+        "eeeettteee",
+        "eeeeiiiiee",
+        "eeeeesseee",
+        "eeeesseeee",
+        "eeeejeeeee",
+        "eeeejjjeee",
+        "eeeeooeeee",
+        "eeeeooeeee",
+        "eeeeeseeee",
+        "eeeeesseee",
+        "eeeejeseee",
+        "eeeejjjeze",
+        "leetoolzze",
+        "lettoolzse"
       ],
       playerPiece: {
         pieceName: "S",
@@ -102,7 +108,9 @@ describe("shiftUp tests", () => {
         offset: 0
       },
       upcomingPieces: upcomingPieces.slice(0, upcomingPieces.length - 1),
-      score: 0
+      score: 0,
+      level: 0,
+      isStarted: false
     };
     expect(newState).toEqual(expectedNewState);
   });

@@ -1,4 +1,4 @@
-import tickReducer from "../../store/reducer/tickReducer"
+import tickReducer from "../../store/reducer/tickReducer";
 describe("ticks correctly", () => {
   it("ticks right when offset of playerPiece is 2", () => {
     const inputState = {
@@ -46,7 +46,8 @@ describe("ticks correctly", () => {
     };
     expect(tickReducer(inputState)).toEqual(expectedOutputState);
   });
-  it("case to be named", () => {
+
+  it("end of game detection", () => {
     const playerPiece = {
       pieceName: "L",
       x: 4,
@@ -80,7 +81,9 @@ describe("ticks correctly", () => {
       ],
       playerPiece,
       upcomingPieces,
-      score: 0
+      score: 0,
+      level: 0,
+      isStarted: true
     });
 
     const expectedNewState = {
@@ -114,7 +117,9 @@ describe("ticks correctly", () => {
         offset: 0
       },
       upcomingPieces: upcomingPieces.slice(0, upcomingPieces.length - 1),
-      score: 0
+      score: 0,
+      level: 0,
+      isStarted: false
     };
     expect(newState).toEqual(expectedNewState);
   });
