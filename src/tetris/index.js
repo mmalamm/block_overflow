@@ -1,5 +1,6 @@
 import createStore from "./store/createStore";
 import { rotate } from "./store/reducer/rotateReducer";
+import { shift } from "./store/reducer/shiftReducer";
 
 const START = "START";
 const SHIFT = "SHIFT";
@@ -67,14 +68,19 @@ class Tetris {
   canRotate(state, payload) {
     return !!rotate(state, payload);
   }
+  canShift(state, payload) {
+    return !!shift(state, payload);
+  }
   pressKey(e) {
     if (!this.isStarted()) return;
     const action = keyMapper[e.keyCode];
     if (action) {
       this.store.dispatch(action);
+      const currentState = this.getState();
       if (
-        action.type === ROTATE &&
-        this.canRotate(this.getState(), action.payload)
+        (action.type === ROTATE &&
+          this.canRotate(currentState, action.payload)) ||
+        (action.type === SHIFT && this.canShift(currentState, action.payload))
       ) {
         clearTimeout(this.currentTickTimeoutId);
         this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);

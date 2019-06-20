@@ -1,7 +1,7 @@
-import shiftLeft from './shiftLeft';
-import shiftRight from './shiftRight';
-import shiftDown from './shiftDown';
-import shiftUp from './shiftUp';
+import shiftLeft from "./shiftLeft";
+import shiftRight from "./shiftRight";
+import shiftDown from "./shiftDown";
+import shiftUp from "./shiftUp";
 
 const shiftFns = {
   LEFT: shiftLeft,
@@ -10,8 +10,12 @@ const shiftFns = {
   UP: shiftUp
 };
 
+export const shift = (state, payload) => {
+  return shiftFns[payload](state);
+};
+
 const shiftReducer = (state, payload) => {
-  return (shiftFns[payload] || (() => null))(state) || { ...state };
-}
+  return shift(state, payload) || state;
+};
 
 export default shiftReducer;
