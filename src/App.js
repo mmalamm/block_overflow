@@ -72,8 +72,6 @@ export default function App() {
             {idx}
           </div>
         ))}
-        <h2 style={{ color: "green" }}>score: {score}</h2>
-        <h2 style={{ color: "blue" }}>level {level}</h2>
       </div>
     );
   };
@@ -82,11 +80,13 @@ export default function App() {
     tetris.start();
   };
 
-  return isStarted ? (
-    renderGameboard()
-  ) : (
+  return (
     <>
-      <button onClick={startGame}>start game</button>
+      {isStarted ? (
+        renderGameboard()
+      ) : (
+        <button onClick={startGame}>start game</button>
+      )}
       <h2 style={{ color: "green" }}>score: {score}</h2>
       <h2 style={{ color: "blue" }}>level {level}</h2>
     </>
