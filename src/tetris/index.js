@@ -2,53 +2,12 @@ import createStore from "./store/createStore";
 import { rotate } from "./store/reducer/rotateReducer";
 import { shift } from "./store/reducer/shiftReducer";
 
-const START = "START";
-const SHIFT = "SHIFT";
-const TICK = "TICK";
-const RIGHT = "RIGHT";
-const LEFT = "LEFT";
-const DOWN = "DOWN";
-const UP = "UP";
-const ROTATE = "ROTATE";
-const CLOCKWISE = "CLOCKWISE";
-const COUNTER_CLOCKWISE = "COUNTER_CLOCKWISE";
-
-const keyMapper = {
-  39: {
-    type: SHIFT,
-    payload: RIGHT
-  },
-  37: {
-    type: SHIFT,
-    payload: LEFT
-  },
-  40: {
-    type: SHIFT,
-    payload: DOWN
-  },
-  38: {
-    type: SHIFT,
-    payload: UP
-  },
-  78: {
-    type: ROTATE,
-    payload: COUNTER_CLOCKWISE
-  },
-  77: {
-    type: ROTATE,
-    payload: CLOCKWISE
-  }
-};
+import { ROTATE, SHIFT, TICK, START, keyMapper } from "./constants";
 
 class Tetris {
   constructor(initTimeoutLength) {
     this.initTimeoutLength = initTimeoutLength;
     this.store = createStore();
-
-    ///
-    window.store = this.store;
-    ///
-
     this.currentTickTimeoutId = null;
     this.currentLevel = null;
     this.timeoutLength = null;
@@ -72,8 +31,14 @@ class Tetris {
     return !!shift(state, payload);
   }
   pressKey(e) {
-    if (!this.isStarted()) return;
     const action = keyMapper[e.keyCode];
+    if (action) {
+      this.dispatch(action);
+    }
+  }
+
+  dispatch(action) {
+    if (!this.isStarted()) return;
     if (action) {
       this.store.dispatch(action);
       const currentState = this.getState();
@@ -107,7 +72,7 @@ class Tetris {
       if (this.currentLevel !== state.level) {
         this.currentLevel = state.level;
         this.timeoutLength =
-          this.initTimeoutLength * Math.pow(0.9, this.currentLevel);
+          this.initTimeoutLength * Math.pow(0.8, this.currentLevel);
       }
     });
     this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);

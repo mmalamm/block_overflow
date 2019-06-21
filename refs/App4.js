@@ -21,7 +21,7 @@ const emojis = {
   g: "⬛️"
 };
 
-let tetris = new Tetris(750);
+let tetris = new Tetris(1000);
 
 export default function App() {
   const [state, setState] = useState(tetris.getState());
