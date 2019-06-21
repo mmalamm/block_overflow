@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from "redux";
 
-import tetrisReducer from "./reducer/rootReducer";
+import tetrisReducer from "./reducer";
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

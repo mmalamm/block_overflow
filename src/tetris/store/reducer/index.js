@@ -1,7 +1,7 @@
 import tickReducer from "./tickReducer";
 import shiftReducer from "./shiftReducer";
-import rotateReducer from "./rotateReducer/";
-import startReducer from "./startReducer/";
+import rotateReducer from "./rotateReducer";
+import startReducer from "./startReducer";
 
 import createInitialState from "../../createInitialState";
 
