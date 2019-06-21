@@ -3,6 +3,7 @@ todos:
 #### Game logic
 - [x] start game/loss detection
 - [x] create levels*
+- [ ] create Selectors for gui
 - [ ] abstract keyboard controls
 - [ ] add touch events
 - [ ] code cleanup
