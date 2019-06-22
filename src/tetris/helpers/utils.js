@@ -1,12 +1,13 @@
 import PIECES from "../pieces";
-import createBoardSection from './createBoardSection';
-import diffSections from './diffSections';
-import sequences from '../sequences';
-import createNewBoard from './createNewBoard';
+import createBoardSection from "./createBoardSection";
+import diffSections from "./diffSections";
+import sequences from "../sequences";
+import createNewBoard from "./createNewBoard";
 
 export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
-export const getShape = pce => PIECES[pce.pieceName].shapes[pce.orientation];
+export const getShape = ({ pieceName, orientation }) =>
+  PIECES[pieceName].shapes[orientation];
 
 export const checkIfIsOver = (brd, nextPce) => {
   const { offset, x, y } = nextPce;
