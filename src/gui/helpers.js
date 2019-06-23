@@ -1,5 +1,5 @@
-import { getShape } from "./tetris/helpers/utils";
-import diffSections from "./tetris/helpers/diffSections";
+import { getShape } from "../tetris/helpers/utils";
+import diffSections from "../tetris/helpers/diffSections";
 
 export const mergeBoard = (board, pce) => {
   const currentShape = getShape(pce);

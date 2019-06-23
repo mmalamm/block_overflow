@@ -1,6 +1,8 @@
 body {
   background: black;
   color: #ddd;
+  font-family: monospace;
+  overflow: hidden;
 }
 
 .container {
@@ -34,6 +36,12 @@ body {
   margin: 0;
   padding: 0;
   color: blue;
+}
+
+.upcomingPieces {
+  display: flex;
+  justify-content: center;
+  height: 2.5rem;
 }
 
 .cell {
