@@ -1,6 +1,6 @@
 import willCollide from "../../../helpers/willCollide";
-const shiftDown = state => {
-  const { board, playerPiece: pce } = state;
+export default state => {
+  const { board, playerPiece: pce, score, level } = state;
 
   if (!willCollide(board, pce)) {
     return {
@@ -8,11 +8,10 @@ const shiftDown = state => {
       playerPiece: {
         ...pce,
         y: pce.y + 1
-      }
+      },
+      score: score + 1 * (level + 1)
     };
   } else {
     return state;
   }
 };
-
-export default shiftDown;
