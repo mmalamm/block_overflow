@@ -40,13 +40,13 @@ class Tetris {
   dispatch(action) {
     if (!this.isStarted()) return;
     if (action) {
-      this.store.dispatch(action);
       const currentState = this.getState();
       if (
         (action.type === ROTATE &&
           this.canRotate(currentState, action.payload)) ||
         (action.type === SHIFT && this.canShift(currentState, action.payload))
       ) {
+        this.store.dispatch(action);
         clearTimeout(this.currentTickTimeoutId);
         this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
       }

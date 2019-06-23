@@ -32,7 +32,7 @@ describe("shiftUp tests", () => {
         offset: 0
       },
       upcomingPieces: upcomingPieces.slice(0, upcomingPieces.length - 1),
-      score: 0,
+      score: 17,
       level: 0,
       isStarted: true
     };

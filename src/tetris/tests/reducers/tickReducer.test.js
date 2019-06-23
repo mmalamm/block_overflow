@@ -32,10 +32,12 @@ describe("ticks correctly", () => {
         "eoolllssjj"
       ],
       upcomingPieces: ["T", "O", "I", "L", "J", "L", "I", "T"],
-      score: 0
+      score: 0,
+      level: 0
     };
     const expectedOutputState = {
       ...inputState,
+      score: 1,
       playerPiece: {
         pieceName: "I",
         x: 0,
