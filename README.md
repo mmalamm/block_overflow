@@ -14,3 +14,7 @@ todos:
 - [ ] ghost*
 - [ ] animations?*
 - [ ] `requestAnimationFrame` and/or `canvas`*
+
+#### Misc
+- [x] analytics
+- [ ] leaderboards
