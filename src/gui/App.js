@@ -6,13 +6,11 @@ import styles from "./App.module.css";
 
 import { COLORS } from "../tetris/pieces";
 
-import Tetris from "../tetris";
 
 import Shape from "./Shape";
 
-let tetris = new Tetris(750);
-
-export default function App() {
+export default function App(props) {
+  const { tetris } = props;
   const [state, setState] = useState(tetris.getState());
 
   const { board, playerPiece, score, isStarted, level, upcomingPieces } = state;
@@ -28,7 +26,6 @@ export default function App() {
     };
     document.addEventListener("keydown", keydownCallback);
     return () => {
-      tetris = null;
       document.removeEventListener("keydown", keydownCallback);
     };
   }, []);

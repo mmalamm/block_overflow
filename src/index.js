@@ -1,5 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./gui/App";
+import Tetris from "./tetris";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const initTimeoutLenght = 750;
+const tracker = window.gtag;
+
+const tetris = new Tetris(initTimeoutLenght, tracker);
+
+ReactDOM.render(<App {...{ tetris }} />, document.getElementById("root"));
