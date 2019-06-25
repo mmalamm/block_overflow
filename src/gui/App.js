@@ -6,11 +6,9 @@ import styles from "./App.module.css";
 
 import { COLORS } from "../tetris/pieces";
 
-
 import Shape from "./Shape";
 
-export default function App(props) {
-  const { tetris } = props;
+export default function App({ tetris }) {
   const [state, setState] = useState(tetris.getState());
 
   const { board, playerPiece, score, isStarted, level, upcomingPieces } = state;
@@ -50,7 +48,9 @@ export default function App(props) {
               <div
                 key={idx}
                 className={styles.cell}
-                style={{ backgroundColor: COLORS[ltr] }}
+                style={{
+                  backgroundColor: COLORS[ltr]
+                }}
               />
             );
           })}
