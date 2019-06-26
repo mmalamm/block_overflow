@@ -1,3 +1,5 @@
+Live Link: https://blockoverflow.netlify.com
+
 todos:
 
 #### Game logic
@@ -9,8 +11,8 @@ todos:
 - [ ] code cleanup
 
 #### GUI
-- [ ] create gui
-- [ ] upcoming pieces
+- [x] create gui
+- [x] upcoming pieces
 - [ ] ghost*
 - [ ] animations?*
 - [ ] `requestAnimationFrame` and/or `canvas`*
