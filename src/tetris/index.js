@@ -4,6 +4,8 @@ import { shift } from "./store/reducer/shiftReducer";
 
 import { ROTATE, SHIFT, TICK, START, keyMapper } from "./constants";
 
+const gtag = window.gtag;
+
 class Tetris {
   constructor(initTimeoutLength) {
     this.initTimeoutLength = initTimeoutLength;
@@ -61,12 +63,21 @@ class Tetris {
     this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
   };
   start() {
+    gtag("event", "start_game", {
+      event_category: "button_press",
+      event_label: "start_game",
+    });
     this.store.dispatch({
       type: START
     });
     this.subscribe(state => {
       if (!state.isStarted) {
         clearTimeout(this.currentTickTimeoutId);
+        gtag("event", "game_ended", {
+          event_category: "game_ended",
+          event_label: "game_end_score",
+          value: state.score
+        });
         return;
       }
       if (this.currentLevel !== state.level) {
