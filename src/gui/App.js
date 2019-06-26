@@ -66,6 +66,15 @@ export default function App() {
     tetris.start();
   };
 
+  const renderHomeScreen = () => {
+    return (
+      <div className={styles.home}>
+        <h2>Block Overflow !!</h2>
+        <button onClick={startGame}>start game</button>
+      </div>
+    );
+  };
+
   return (
     <div className={styles.container}>
       {isStarted ? (
@@ -74,7 +83,7 @@ export default function App() {
           {renderGameboard()}
         </div>
       ) : (
-        <button onClick={startGame}>start game</button>
+        renderHomeScreen()
       )}
       <h2 className={styles.score}>score: {score}</h2>
       <h2 className={styles.level}>level: {level}</h2>
