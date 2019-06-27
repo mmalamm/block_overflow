@@ -2,7 +2,7 @@ import { createEmptyBoard } from "./helpers/utils";
 import sequences from "./sequences";
 
 const createInitialState = () => {
-  const upcomingPieces = sequences[0].split("");
+  const upcomingPieces = [...sequences[0]];
   const firstPieceName = upcomingPieces.pop();
   return {
     playerPiece: {

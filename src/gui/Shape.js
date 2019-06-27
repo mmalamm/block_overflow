@@ -9,7 +9,7 @@ export default function Shape(props) {
     <div className={styles.shape}>
       {shape.map((row, idx) => (
         <div className={styles.row} key={idx}>
-          {row.split("").map((ltr, idx) => {
+          {[...row].map((ltr, idx) => {
             return (
               <div
                 key={idx}

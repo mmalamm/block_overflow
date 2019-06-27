@@ -1,36 +1,33 @@
 import createStore from "./store/createStore";
-import { rotate } from "./store/reducer/rotateReducer";
-import { shift } from "./store/reducer/shiftReducer";
 
-import { ROTATE, SHIFT, TICK, START, keyMapper } from "./constants";
+import { TICK, START, keyMapper } from "./constants";
 
 class Tetris {
-  constructor(initTimeoutLength, tracker) {
-    this.initTimeoutLength = initTimeoutLength;
+  constructor(initIntervalLength, tracker) {
+    this.initIntervalLength = initIntervalLength;
     this.store = createStore();
-    this.currentTickTimeoutId = null;
+    this.currentIntervalId = null;
     this.currentLevel = null;
-    this.timeoutLength = null;
+    this.intervalLength = null;
     this.tracker = tracker;
   }
+
   subscribe(callback) {
-    this.store.subscribe(_ => {
-      callback(this.getState());
+    const unsubscribe = this.store.subscribe(_ => {
+      callback(this.store.getState());
     });
+    return unsubscribe;
   }
+
   getState() {
     return this.store.getState();
   }
+
   isStarted() {
     const { isStarted } = this.store.getState();
     return isStarted;
   }
-  canRotate(state, payload) {
-    return !!rotate(state, payload);
-  }
-  canShift(state, payload) {
-    return !!shift(state, payload);
-  }
+
   pressKey(e) {
     const action = keyMapper[e.keyCode];
     if (action) {
@@ -40,27 +37,16 @@ class Tetris {
 
   dispatch(action) {
     if (!this.isStarted()) return;
-    if (action) {
-      const currentState = this.getState();
-      if (
-        (action.type === ROTATE &&
-          this.canRotate(currentState, action.payload)) ||
-        (action.type === SHIFT && this.canShift(currentState, action.payload))
-      ) {
-        this.store.dispatch(action);
-        clearTimeout(this.currentTickTimeoutId);
-        this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
-      }
-    }
+    this.store.dispatch(action);
   }
+
   tick = () => {
     if (!this.isStarted()) return;
     this.store.dispatch({
       type: TICK
     });
-    clearTimeout(this.currentTickTimeoutId);
-    this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
   };
+
   start() {
     this.tracker("event", "start_game", {
       event_category: "button_press",
@@ -69,23 +55,27 @@ class Tetris {
     this.store.dispatch({
       type: START
     });
-    this.subscribe(state => {
+    const unsubscribe = this.store.subscribe(_ => {
+      const state = this.getState();
       if (!state.isStarted) {
-        clearTimeout(this.currentTickTimeoutId);
+        clearInterval(this.currentIntervalId);
         this.tracker("event", "game_ended", {
           event_category: "game_ended",
           event_label: "game_end_score",
           value: state.score
         });
+        unsubscribe();
         return;
       }
       if (this.currentLevel !== state.level) {
+        clearInterval(this.currentIntervalId);
         this.currentLevel = state.level;
-        this.timeoutLength =
-          this.initTimeoutLength * Math.pow(0.8, this.currentLevel);
+        this.intervalLength =
+          this.initIntervalLength * Math.pow(0.8, this.currentLevel);
+        this.currentIntervalId = setInterval(this.tick, this.intervalLength);
       }
     });
-    this.currentTickTimeoutId = setTimeout(this.tick, this.timeoutLength);
+    this.currentIntervalId = setInterval(this.tick, this.initIntervalLength);
   }
 }
 

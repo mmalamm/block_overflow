@@ -25,7 +25,7 @@ export const checkIfIsOver = (brd, nextPce) => {
 export const getNewLevel = (lvl, pcs) => (pcs.length ? lvl : lvl + 1);
 
 export const getNewUpcomingPieces = (lvl, pcs) =>
-  pcs.length ? pcs.slice() : sequences[lvl % 4].repeat(lvl + 1).split("");
+  pcs.length ? pcs.slice() : [...sequences[lvl % 4].repeat(lvl + 1)];
 
 const bonusMap = [0, 10, 25, 45, 70];
 

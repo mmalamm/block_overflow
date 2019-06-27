@@ -41,10 +41,5 @@ export const mergeBoard = (board, pce) => {
   const beginningArena = board.slice(0, pce.y);
   const middleArena = replacementRows;
   const endArena = board.slice(pce.y + len);
-  console.log({ beginningArena, middleArena, endArena });
-  return [
-    ...board.slice(0, pce.y),
-    ...replacementRows,
-    ...board.slice(pce.y + len)
-  ];
+  return [...beginningArena, ...middleArena, ...endArena];
 };

@@ -26,6 +26,6 @@ const shuffler = arr => {
   }
   return arr
 }
-const shuffleLetters = str => shuffler(str.split('')).join('');
+const shuffleLetters = str => shuffler([...str]).join('');
 
 export default "TISJOZLSOLTIJZLJOZTSIJLTOZISOZISJTJ";

@@ -43,7 +43,7 @@ export default function App({ tetris }) {
     <div className={styles.arena}>
       {mergeBoard(board, playerPiece).map((row, idx) => (
         <div className={styles.row} key={idx}>
-          {row.split("").map((ltr, idx) => {
+          {[...row].map((ltr, idx) => {
             return (
               <div
                 key={idx}
