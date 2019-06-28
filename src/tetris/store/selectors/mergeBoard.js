@@ -1,7 +1,12 @@
-import { getShape } from "../tetris/helpers/utils";
-import diffSections from "../tetris/helpers/diffSections";
+import { createSelector } from "reselect";
+// import { mergeBoard } from '../../../gui/helpers';
+import { getShape } from "../../helpers/utils";
+import diffSections from "../../helpers/diffSections";
 
-export const mergeBoard = (board, pce) => {
+const boardSelector = state => state.board;
+const pieceSelector = state => state.playerPiece;
+
+const mergeBoard = (board, pce) => {
   const currentShape = getShape(pce);
   const len = currentShape.length;
   const offset = pce.offset;
@@ -28,7 +33,7 @@ export const mergeBoard = (board, pce) => {
     boardSection = brd.slice(pce.y, pce.y + len).map(row => {
       return row.slice(pce.x, pce.x + len);
     });
-    if (diffSections(boardSection, currentShape) === null) debugger;
+    if (diffSections(boardSection, currentShape) === null) return board;
     return diffSections(boardSection, currentShape).map((sRow, idx) => {
       return (
         brd[pce.y + idx].slice(0, pce.x) +
@@ -43,3 +48,11 @@ export const mergeBoard = (board, pce) => {
   const endArena = board.slice(pce.y + len);
   return [...beginningArena, ...middleArena, ...endArena];
 };
+
+const mergeBoardSelector = createSelector(
+  boardSelector,
+  pieceSelector,
+  mergeBoard
+);
+
+export default mergeBoardSelector;

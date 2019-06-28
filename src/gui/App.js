@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { mergeBoard } from "./helpers";
+import { createEmptyBoard } from "../tetris/helpers/utils";
+
+// import { mergeBoard } from "./helpers";
+import mergeBoard from "../tetris/store/selectors/mergeBoard";
 
 import styles from "./App.module.css";
 
@@ -10,11 +13,15 @@ import Shape from "./Shape";
 
 export default function App({ tetris }) {
   const [state, setState] = useState(tetris.getState());
+  const [mergedBoard, setMergedBoard] = useState(createEmptyBoard());
 
-  const { board, playerPiece, score, isStarted, level, upcomingPieces } = state;
+  const { score, isStarted, level, upcomingPieces } = state;
 
   useEffect(() => {
-    tetris.subscribe(setState);
+    tetris.subscribe(state => {
+      setState(state);
+      setMergedBoard(mergeBoard(state));
+    });
     const keydownCallback = e => {
       if (e.key === "Enter" && !tetris.getState().isStarted) {
         startGame();
@@ -41,7 +48,7 @@ export default function App({ tetris }) {
 
   const renderGameboard = () => (
     <div className={styles.arena}>
-      {mergeBoard(board, playerPiece).map((row, idx) => (
+      {mergedBoard.map((row, idx) => (
         <div className={styles.row} key={idx}>
           {[...row].map((ltr, idx) => {
             return (
