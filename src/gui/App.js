@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { createEmptyBoard } from "../tetris/helpers/utils";
 
-// import { mergeBoard } from "./helpers";
 import mergeBoard from "../tetris/store/selectors/mergeBoard";
 
 import styles from "./App.module.css";

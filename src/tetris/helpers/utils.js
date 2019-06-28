@@ -6,8 +6,16 @@ import createNewBoard from "./createNewBoard";
 
 export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
-export const getShape = ({ pieceName, orientation }) =>
-  PIECES[pieceName].shapes[orientation];
+export const getShape = ({ pieceName, orientation, ghost }) => {
+  const pieceShape = PIECES[pieceName].shapes[orientation];
+
+  if (ghost) {
+    const pieceCellContent = pieceName.toLowerCase();
+    const regex = new RegExp(pieceCellContent, "g");
+    return pieceShape.map(row => row.replace(regex, "g"));
+  }
+  return pieceShape;
+};
 
 export const checkIfIsOver = (brd, nextPce) => {
   const { offset, x, y } = nextPce;
