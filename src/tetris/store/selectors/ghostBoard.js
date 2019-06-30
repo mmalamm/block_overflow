@@ -1,11 +1,12 @@
 import { createSelector } from "reselect";
 import ghostSelector from "./ghost";
-import { boardSelector, insertPieceIntoBoard } from "./shared";
+import mergeBoardSelector from "./mergeBoard";
+import insertGhostIntoBoard from "./insertGhostIntoBoard";
 
 const ghostBoardSelector = createSelector(
-  boardSelector,
+  mergeBoardSelector,
   ghostSelector,
-  insertPieceIntoBoard
+  insertGhostIntoBoard
 );
 
 export default ghostBoardSelector;

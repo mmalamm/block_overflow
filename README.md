@@ -5,7 +5,8 @@ todos:
 #### Game logic
 - [x] start game/loss detection
 - [x] create levels*
-- [ ] create Selectors for gui
+- [x] create Selectors for gui
+- [ ] refactor `insertPieceIntoBoard`
 - [ ] abstract keyboard controls
 - [ ] add touch events
 - [ ] code cleanup
@@ -13,7 +14,8 @@ todos:
 #### GUI
 - [x] create gui
 - [x] upcoming pieces
-- [ ] ghost*
+- [x] ghost*
+- [ ] color themes
 - [ ] animations?*
 - [ ] `requestAnimationFrame` and/or `canvas`*
 

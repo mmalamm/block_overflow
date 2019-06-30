@@ -31,7 +31,7 @@ export const insertPieceIntoBoard = (board, pce) => {
     boardSection = brd.slice(pce.y, pce.y + len).map(row => {
       return row.slice(pce.x, pce.x + len);
     });
-    if (diffSections(boardSection, currentShape) === null) return board;
+    if (diffSections(boardSection, currentShape) === null) return [];
     return diffSections(boardSection, currentShape).map((sRow, idx) => {
       return (
         brd[pce.y + idx].slice(0, pce.x) +
@@ -44,5 +44,6 @@ export const insertPieceIntoBoard = (board, pce) => {
   const beginningArena = board.slice(0, pce.y);
   const middleArena = replacementRows;
   const endArena = board.slice(pce.y + len);
-  return [...beginningArena, ...middleArena, ...endArena];
+  const output = [...beginningArena, ...middleArena, ...endArena];
+  return output;
 };
