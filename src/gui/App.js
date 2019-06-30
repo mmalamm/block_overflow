@@ -34,11 +34,11 @@ export default function App({ tetris }) {
     };
   }, []);
 
-  const renderUpcomingPieces = pcs => (
+  const renderUpcomingPieces = () => (
     <div>
       <p>next:</p>
       <div className={styles.upcomingPieces}>
-        {pcs.slice(-4).map((ltr, idx) => (
+        {upcomingPieces.slice(-4).map((ltr, idx) => (
           <Shape key={idx} letter={ltr} />
         ))}
       </div>
@@ -80,7 +80,7 @@ export default function App({ tetris }) {
     <div className={styles.container}>
       {isStarted ? (
         <div>
-          {renderUpcomingPieces(upcomingPieces)}
+          {renderUpcomingPieces()}
           {renderGameboard()}
         </div>
       ) : (

@@ -18,6 +18,8 @@ todos:
 - [ ] create intro screen
 - [ ] create endgame screen
 - [ ] color themes
+- [ ] improve layout
+- [ ] code cleanup (clean up react)
 - [ ] animations?*
 - [ ] `requestAnimationFrame` and/or `canvas`*
 
