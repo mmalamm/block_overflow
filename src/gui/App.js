@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { createEmptyBoard } from "../tetris/helpers/utils";
 
-// import { mergeBoard } from "./helpers";
-import mergeBoard from "../tetris/store/selectors/mergeBoard";
+import ghostBoard from "../tetris/store/selectors/ghostBoard";
 
 import styles from "./App.module.css";
 
@@ -20,7 +19,7 @@ export default function App({ tetris }) {
   useEffect(() => {
     tetris.subscribe(state => {
       setState(state);
-      setMergedBoard(mergeBoard(state));
+      setMergedBoard(ghostBoard(state));
     });
     const keydownCallback = e => {
       if (e.key === "Enter" && !tetris.getState().isStarted) {
@@ -35,11 +34,11 @@ export default function App({ tetris }) {
     };
   }, []);
 
-  const renderUpcomingPieces = pcs => (
+  const renderUpcomingPieces = () => (
     <div>
       <p>next:</p>
       <div className={styles.upcomingPieces}>
-        {pcs.slice(-4).map((ltr, idx) => (
+        {upcomingPieces.slice(-4).map((ltr, idx) => (
           <Shape key={idx} letter={ltr} />
         ))}
       </div>
@@ -50,17 +49,15 @@ export default function App({ tetris }) {
     <div className={styles.arena}>
       {mergedBoard.map((row, idx) => (
         <div className={styles.row} key={idx}>
-          {[...row].map((ltr, idx) => {
-            return (
-              <div
-                key={idx}
-                className={styles.cell}
-                style={{
-                  backgroundColor: COLORS[ltr]
-                }}
-              />
-            );
-          })}
+          {[...row].map((ltr, idx) => (
+            <div
+              key={idx}
+              className={styles.cell}
+              style={{
+                backgroundColor: COLORS[ltr]
+              }}
+            />
+          ))}
         </div>
       ))}
     </div>
@@ -83,7 +80,7 @@ export default function App({ tetris }) {
     <div className={styles.container}>
       {isStarted ? (
         <div>
-          {renderUpcomingPieces(upcomingPieces)}
+          {renderUpcomingPieces()}
           {renderGameboard()}
         </div>
       ) : (

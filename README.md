@@ -5,18 +5,25 @@ todos:
 #### Game logic
 - [x] start game/loss detection
 - [x] create levels*
-- [ ] create Selectors for gui
+- [x] create Selectors for gui
+- [ ] create play/pause
 - [ ] abstract keyboard controls
 - [ ] add touch events
-- [ ] code cleanup
+- [ ] code cleanup (abstract analytics)
 
 #### GUI
 - [x] create gui
 - [x] upcoming pieces
-- [ ] ghost*
+- [x] ghost*
+- [ ] create intro screen
+- [ ] create endgame screen
+- [ ] color themes
+- [ ] improve layout
+- [ ] code cleanup (clean up react)
 - [ ] animations?*
 - [ ] `requestAnimationFrame` and/or `canvas`*
 
 #### Misc
 - [x] analytics
+- [ ] readme
 - [ ] leaderboards
