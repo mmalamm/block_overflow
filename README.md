@@ -6,19 +6,22 @@ todos:
 - [x] start game/loss detection
 - [x] create levels*
 - [x] create Selectors for gui
-- [ ] refactor `insertPieceIntoBoard`
+- [ ] create play/pause
 - [ ] abstract keyboard controls
 - [ ] add touch events
-- [ ] code cleanup
+- [ ] code cleanup (abstract analytics)
 
 #### GUI
 - [x] create gui
 - [x] upcoming pieces
 - [x] ghost*
+- [ ] create intro screen
+- [ ] create endgame screen
 - [ ] color themes
 - [ ] animations?*
 - [ ] `requestAnimationFrame` and/or `canvas`*
 
 #### Misc
 - [x] analytics
+- [ ] readme
 - [ ] leaderboards
