@@ -1,39 +1,33 @@
+import createBoardSection from "./createBoardSection";
 import { getShape } from "./utils";
-export const createNewBoard = (board, pce) => {
-  const newBoard = [...board];
-  const currentShape = getShape(pce);
-  const { x, y, offset } = pce;
+import diffSections from "./diffSections";
+export default (board, piece) => {
+  const currentShape = getShape(piece);
   const len = currentShape.length;
-  for (let i = 0; i < len; i++) {
-    const newY = i + y;
-    if (!newBoard[newY]) continue;
+  const { x, y, offset } = piece;
 
-    let newRow = "";
-    if (offset) {
-      const rowOfShape = currentShape[i].slice(offset);
+  const boardSection = createBoardSection(board, {
+    offset,
+    x,
+    y,
+    length: len
+  });
+  const mergedSection = diffSections(boardSection, currentShape) || [];
 
-      for (let j = 0; j < board[newY].length; j++) {
-        if (rowOfShape[j] && rowOfShape[j] !== "e") {
-          newRow += rowOfShape[j];
-        } else {
-          newRow += board[newY][j];
-        }
-      }
-    } else {
-      newRow += board[newY].slice(0, x);
-      for (let j = 0; j < currentShape[i].length; j++) {
-        if (currentShape[i][j] === "e") {
-          newRow += board[newY][x + j] || "";
-        } else if (board[newY][x + j] === "e") {
-          newRow += currentShape[i][j];
-        }
-      }
-      newRow += board[newY].slice(x + len);
-    }
-
-
-    newBoard[newY] = newRow;
-  }
-  return newBoard;
+  const replacementRows = mergedSection
+    .map((msRow, idx) => {
+      const currentRow = board[y + idx];
+      if (!currentRow) return null;
+      const outputRow =
+        currentRow.slice(0, x) +
+        msRow.replace(/#/g, "") +
+        currentRow.slice(x + len - offset);
+      return outputRow;
+    })
+    .filter(e => e);
+  const beginningArena = board.slice(0, y);
+  const middleArena = replacementRows;
+  const endArena = board.slice(y + len);
+  const output = [...beginningArena, ...middleArena, ...endArena];
+  return output;
 };
-export default createNewBoard;

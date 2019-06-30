@@ -14,7 +14,8 @@ describe("createNewBoard scenarios", () => {
       pieceName: "L",
       x: 4,
       y: yCoordinate,
-      orientation: 0
+      orientation: 0,
+      offset: 0
     };
 
     const expectedBoard = createEmptyBoard()
@@ -29,7 +30,8 @@ describe("createNewBoard scenarios", () => {
       pieceName: "Z",
       x: 4,
       y: 16,
-      orientation: 0
+      orientation: 0,
+      offset: 0
     };
 
     const currentBoard = createEmptyBoard()
@@ -47,7 +49,8 @@ describe("createNewBoard scenarios", () => {
       pieceName: "J",
       x: 8,
       y: 17,
-      orientation: 3
+      orientation: 3,
+      offset: 0
     };
 
     const currentBoard = createEmptyBoard();
@@ -63,7 +66,8 @@ describe("createNewBoard scenarios", () => {
       pieceName: "S",
       x: 4,
       y: 18,
-      orientation: 0
+      orientation: 0,
+      offset: 0
     };
 
     const currentBoard = createEmptyBoard()
