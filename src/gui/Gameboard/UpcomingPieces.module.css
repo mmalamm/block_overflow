@@ -1,3 +1,9 @@
+.upcomingPieces {
+  display: flex;
+  justify-content: center;
+  height: 2.5rem;
+}
+
 .row {
   display: flex;
 }

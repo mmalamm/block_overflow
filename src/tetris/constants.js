@@ -29,6 +29,14 @@ export const touchMapper = {
   SPACE: {
     type: ROTATE,
     payload: CLOCKWISE
+  },
+  CLOCKWISE: {
+    type: ROTATE,
+    payload: CLOCKWISE
+  },
+  COUNTER_CLOCKWISE: {
+    type: ROTATE,
+    payload: COUNTER_CLOCKWISE
   }
 };
 

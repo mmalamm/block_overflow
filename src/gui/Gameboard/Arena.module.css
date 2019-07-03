@@ -1,0 +1,24 @@
+.arena {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(to bottom, blue, cyan);
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.cell {
+  height: 1rem;
+  width: 1rem;
+  background-color: black;
+  margin: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
