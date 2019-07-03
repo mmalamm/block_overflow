@@ -1,6 +1,6 @@
 import createStore from "./store/createStore";
 
-import { TICK, START, keyMapper } from "./constants";
+import { TICK, START, keyMapper, touchMapper } from "./constants";
 
 class Tetris {
   constructor(initIntervalLength, tracker) {
@@ -30,6 +30,13 @@ class Tetris {
 
   pressKey(e) {
     const action = keyMapper[e.keyCode];
+    if (action) {
+      this.dispatch(action);
+    }
+  }
+
+  touchButton(btn) {
+    const action = touchMapper[btn];
     if (action) {
       this.dispatch(action);
     }

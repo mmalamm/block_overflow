@@ -9,6 +9,29 @@ export const ROTATE = "ROTATE";
 export const CLOCKWISE = "CLOCKWISE";
 export const COUNTER_CLOCKWISE = "COUNTER_CLOCKWISE";
 
+export const touchMapper = {
+  LEFT: {
+    type: SHIFT,
+    payload: LEFT
+  },
+  RIGHT: {
+    type: SHIFT,
+    payload: RIGHT
+  },
+  UP: {
+    type: SHIFT,
+    payload: UP
+  },
+  DOWN: {
+    type: SHIFT,
+    payload: DOWN
+  },
+  SPACE: {
+    type: ROTATE,
+    payload: CLOCKWISE
+  }
+};
+
 export const keyMapper = {
   39: {
     type: SHIFT,

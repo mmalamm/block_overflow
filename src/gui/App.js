@@ -72,8 +72,33 @@ export default function App({ tetris }) {
       <div className={styles.home}>
         <h2>Block Overflow !!</h2>
         <button onClick={startGame}>start game</button>
+        {renderScoreAndLevel()}
       </div>
     );
+  };
+  const touchButton = direction => () => {
+    tetris.touchButton(direction);
+  };
+  const renderScoreAndLevel = () => {
+    return (
+      <>
+        <h2 className={styles.score}>score: {score}</h2>
+        <h2 className={styles.level}>level: {level}</h2>
+      </>
+    );
+  };
+
+  const renderTouchButtons = () => {
+    const isTouchScreen = !("maxTouchPoints" in Navigator);
+    debugger;
+    return isTouchScreen ? (
+      <div>
+        <button onTouchStart={touchButton("LEFT")}>{"<"}</button>
+        <button onTouchStart={touchButton("RIGHT")}>{">"}</button>
+        <button onTouchStart={touchButton("UP")}>{"^"}</button>
+        <button onTouchStart={touchButton("DOWN")}>{"v"}</button>
+      </div>
+    ) : null;
   };
 
   return (
@@ -82,12 +107,12 @@ export default function App({ tetris }) {
         <div>
           {renderUpcomingPieces()}
           {renderGameboard()}
+          {renderTouchButtons()}
+          {renderScoreAndLevel()}
         </div>
       ) : (
         renderHomeScreen()
       )}
-      <h2 className={styles.score}>score: {score}</h2>
-      <h2 className={styles.level}>level: {level}</h2>
     </div>
   );
 }
