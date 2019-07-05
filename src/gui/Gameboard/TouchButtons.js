@@ -6,45 +6,47 @@ const TouchButtons = ({ interactionType, touchButton }) => {
     <div className={styles.buttonPanel}>
       <div className={`${styles.btnSet} ${styles.leftBtns}`}>
         <button
-          className={`${styles.touchButton} ${styles.button_down}`}
-          onTouchStart={touchButton("DOWN")}
+          className={`${styles.touchButton} ${styles.button_cw}`}
+          onTouchStart={touchButton("CLOCKWISE")}
         >
-          {"v"}
-        </button>
-        <button
-          className={`${styles.touchButton} ${styles.button_cc}`}
-          onTouchStart={touchButton("COUNTER_CLOCKWISE")}
-        >
-          {"@"}
-        </button>
-        <button
-          className={`${styles.touchButton} ${styles.button_left}`}
-          onTouchStart={touchButton("LEFT")}
-        >
-          {"<"}
+          {"🔁"}
         </button>
       </div>
 
       <div className={`${styles.btnSet} ${styles.rightBtns}`}>
-        <button
-          className={`${styles.touchButton} ${styles.button_up}`}
-          onTouchStart={touchButton("UP")}
-        >
-          {"^"}
-        </button>
-        <button
-          className={`${styles.touchButton} ${styles.button_cw}`}
-          onTouchStart={touchButton("CLOCKWISE")}
-        >
-          {"&"}
-        </button>
+        <div className={`${styles.oneButtonWidth}`}>
+          <button
+            className={`${styles.touchButton} ${styles.button_up}`}
+            onTouchStart={touchButton("UP")}
+          >
+            {"🔼"}
+          </button>
+        </div>
 
-        <button
-          className={`${styles.touchButton} ${styles.button_right}`}
-          onTouchStart={touchButton("RIGHT")}
-        >
-          {">"}
-        </button>
+        <div className={`${styles.twoButtonWidth}`}>
+          <button
+            className={`${styles.touchButton} ${styles.button_left}`}
+            onTouchStart={touchButton("LEFT")}
+          >
+            {"◀️"}
+          </button>
+
+          <button
+            className={`${styles.touchButton} ${styles.button_right}`}
+            onTouchStart={touchButton("RIGHT")}
+          >
+            {"▶️"}
+          </button>
+        </div>
+
+        <div className={`${styles.oneButtonWidth}`}>
+          <button
+            className={`${styles.touchButton} ${styles.button_down}`}
+            onTouchStart={touchButton("DOWN")}
+          >
+            {"🔽"}
+          </button>
+        </div>
       </div>
     </div>
   ) : null;

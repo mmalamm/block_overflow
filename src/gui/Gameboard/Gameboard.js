@@ -20,9 +20,9 @@ export default function Gameboard({
   };
   return (
     <div className={styles.gameBoard}>
-      {renderScoreAndLevel()}
       <UpcomingPieces upcomingPieces={upcomingPieces.slice(-4)} />
       <Arena mergedBoard={mergedBoard} />
+      {renderScoreAndLevel()}
     </div>
   );
 }
