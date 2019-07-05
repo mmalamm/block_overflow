@@ -4,7 +4,7 @@ import App from "./gui/App";
 import Tetris from "./tetris";
 
 const initTimeoutLenght = 1000;
-const tracker = window.gtag;
+const tracker = window.gtag || (() => {});
 
 const tetris = new Tetris(initTimeoutLenght, tracker);
 

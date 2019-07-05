@@ -8,3 +8,8 @@
   padding: 0;
   color: blue;
 }
+
+.scoreAndLevel {
+  display: flex;
+  justify-content: space-between;
+}

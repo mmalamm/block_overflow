@@ -7,6 +7,7 @@ import ghostBoard from "../tetris/store/selectors/ghostBoard";
 import styles from "./App.module.css";
 
 import Gameboard from "./Gameboard/Gameboard";
+import TouchButtons from "./Gameboard/TouchButtons";
 
 export default function App({ tetris }) {
   const [state, setState] = useState(tetris.getState());
@@ -17,7 +18,6 @@ export default function App({ tetris }) {
 
   useEffect(() => {
     tetris.subscribe(state => {
-      console.log("got state");
       setState(state);
       setMergedBoard(ghostBoard(state));
     });
@@ -69,16 +69,17 @@ export default function App({ tetris }) {
   return (
     <div className={styles.container}>
       {isStarted ? (
-        <Gameboard
-          {...{
-            upcomingPieces,
-            mergedBoard,
-            interactionType,
-            touchButton,
-            score,
-            level
-          }}
-        />
+        <>
+          <Gameboard
+            {...{
+              upcomingPieces,
+              mergedBoard,
+              score,
+              level
+            }}
+          />
+          <TouchButtons {...{ interactionType, touchButton }} />
+        </>
       ) : (
         renderHomeScreen()
       )}

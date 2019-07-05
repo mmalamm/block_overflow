@@ -1,0 +1,29 @@
+.buttonPanel {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100vw;
+    margin: -3rem;
+}
+
+.btnSet {
+    display: flex;
+    flex-direction: column
+}
+
+.touchButton {
+    border: none;
+    background-color: yellow;
+    margin: -.5rem 0;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 3.5rem;
+}
+
+.button_cw {
+    margin-left: -2.5rem;
+}
+
+.button_cc {
+    margin-left: 2.5rem;
+}
