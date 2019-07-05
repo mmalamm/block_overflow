@@ -6,19 +6,20 @@ todos:
 - [x] start game/loss detection
 - [x] create levels*
 - [x] create Selectors for gui
+- [x] add touch events
+- [ ] refactor touchButtons
 - [ ] create play/pause
 - [ ] abstract keyboard controls
-- [ ] add touch events
 - [ ] code cleanup (abstract analytics)
 
 #### GUI
 - [x] create gui
 - [x] upcoming pieces
 - [x] ghost*
+- [ ] improve layout
 - [ ] create intro screen
 - [ ] create endgame screen
 - [ ] color themes
-- [ ] improve layout
 - [ ] code cleanup (clean up react)
 - [ ] animations?*
 - [ ] `requestAnimationFrame` and/or `canvas`*

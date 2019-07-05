@@ -1,0 +1,15 @@
+.score {
+  margin: 0;
+  padding: 0;
+  color: green;
+}
+.level {
+  margin: 0;
+  padding: 0;
+  color: blue;
+}
+
+.scoreAndLevel {
+  display: flex;
+  justify-content: space-between;
+}

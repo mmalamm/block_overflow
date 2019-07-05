@@ -6,13 +6,13 @@ import ghostBoard from "../tetris/store/selectors/ghostBoard";
 
 import styles from "./App.module.css";
 
-import { COLORS } from "../tetris/pieces";
-
-import Shape from "./Shape";
+import Gameboard from "./Gameboard/Gameboard";
+import TouchButtons from "./Gameboard/TouchButtons";
 
 export default function App({ tetris }) {
   const [state, setState] = useState(tetris.getState());
   const [mergedBoard, setMergedBoard] = useState(createEmptyBoard());
+  const [interactionType, setInteractionType] = useState("click");
 
   const { score, isStarted, level, upcomingPieces } = state;
 
@@ -34,60 +34,55 @@ export default function App({ tetris }) {
     };
   }, []);
 
-  const renderUpcomingPieces = () => (
-    <div>
-      <p>next:</p>
-      <div className={styles.upcomingPieces}>
-        {upcomingPieces.slice(-4).map((ltr, idx) => (
-          <Shape key={idx} letter={ltr} />
-        ))}
-      </div>
-    </div>
-  );
-
-  const renderGameboard = () => (
-    <div className={styles.arena}>
-      {mergedBoard.map((row, idx) => (
-        <div className={styles.row} key={idx}>
-          {[...row].map((ltr, idx) => (
-            <div
-              key={idx}
-              className={styles.cell}
-              style={{
-                backgroundColor: COLORS[ltr]
-              }}
-            />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-
   const startGame = () => {
     tetris.start();
   };
 
   const renderHomeScreen = () => {
+    const touchScreenCallback = e => {
+      e.preventDefault();
+      setInteractionType("touch");
+      startGame();
+    };
     return (
       <div className={styles.home}>
         <h2>Block Overflow !!</h2>
-        <button onClick={startGame}>start game</button>
+        <button onClick={startGame} onTouchStart={touchScreenCallback}>
+          start game
+        </button>
+        {renderScoreAndLevel()}
       </div>
+    );
+  };
+  const touchButton = direction => () => {
+    tetris.touchButton(direction);
+  };
+  const renderScoreAndLevel = () => {
+    return (
+      <>
+        <h2 className={styles.score}>score: {score}</h2>
+        <h2 className={styles.level}>level: {level}</h2>
+      </>
     );
   };
 
   return (
     <div className={styles.container}>
       {isStarted ? (
-        <div>
-          {renderUpcomingPieces()}
-          {renderGameboard()}
-        </div>
+        <>
+          <Gameboard
+            {...{
+              upcomingPieces,
+              mergedBoard,
+              score,
+              level
+            }}
+          />
+          <TouchButtons {...{ interactionType, touchButton }} />
+        </>
       ) : (
         renderHomeScreen()
       )}
-      <h2 className={styles.score}>score: {score}</h2>
-      <h2 className={styles.level}>level: {level}</h2>
     </div>
   );
 }

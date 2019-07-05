@@ -1,9 +1,9 @@
 import React from "react";
-import { getShape } from "../tetris/helpers/utils";
-import styles from "./Shape.module.css";
-import { COLORS } from "../tetris/pieces";
+import styles from "./UpcomingPieces.module.css";
+import { COLORS } from "../../tetris/pieces";
+import { getShape } from "../../tetris/helpers/utils";
 
-export default function Shape(props) {
+function Shape(props) {
   const shape = getShape({ pieceName: props.letter, orientation: 0 });
   return (
     <div className={styles.shape}>
@@ -23,3 +23,17 @@ export default function Shape(props) {
     </div>
   );
 }
+
+
+const UpcomingPieces = ({ upcomingPieces }) => (
+  <div>
+    <p>next:</p>
+    <div className={styles.upcomingPieces}>
+      {upcomingPieces.map((ltr, idx) => (
+        <Shape key={idx} letter={ltr} />
+      ))}
+    </div>
+  </div>
+);
+
+export default UpcomingPieces;
