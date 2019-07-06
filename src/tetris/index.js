@@ -28,6 +28,18 @@ class Tetris {
     return isStarted;
   }
 
+  pause() {
+    if (this.currentIntervalId) {
+      clearInterval(this.currentIntervalId);
+      this.currentIntervalId = null;
+    }
+  }
+
+  resume() {
+    this.tick();
+    this.currentIntervalId = setInterval(this.tick, this.intervalLength);
+  }
+
   pressKey(e) {
     const action = keyMapper[e.keyCode];
     if (action) {
@@ -43,6 +55,7 @@ class Tetris {
   }
 
   dispatch(action) {
+    if (!this.currentIntervalId) return;
     if (!this.isStarted()) return;
     this.store.dispatch(action);
   }
@@ -66,6 +79,7 @@ class Tetris {
       const state = this.getState();
       if (!state.isStarted) {
         clearInterval(this.currentIntervalId);
+        this.currentIntervalId = null;
         this.tracker("event", "game_ended", {
           event_category: "game_ended",
           event_label: "game_end_score",

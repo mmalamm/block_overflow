@@ -13,6 +13,7 @@ export default function App({ tetris }) {
   const [state, setState] = useState(tetris.getState());
   const [mergedBoard, setMergedBoard] = useState(createEmptyBoard());
   const [interactionType, setInteractionType] = useState("click");
+  const [isPaused, setPaused] = useState(false);
 
   const { score, isStarted, level, upcomingPieces } = state;
 
@@ -65,6 +66,15 @@ export default function App({ tetris }) {
       </>
     );
   };
+  const togglePause = () => {
+    if (isPaused === false) {
+      setPaused(true);
+      tetris.pause();
+    } else {
+      setPaused(false);
+      tetris.resume();
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -79,6 +89,7 @@ export default function App({ tetris }) {
             }}
           />
           <TouchButtons {...{ interactionType, touchButton }} />
+          <button onClick={togglePause}>{isPaused ? "Resume" : "Pause"}</button>
         </>
       ) : (
         renderHomeScreen()
