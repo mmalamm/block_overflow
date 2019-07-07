@@ -1,15 +1,23 @@
-.score {
+.scoreLabel {
   margin: 0;
   padding: 0;
   color: green;
 }
-.level {
+.levelLabel {
   margin: 0;
   padding: 0;
   color: blue;
 }
-
+.score {
+  margin: 0;
+  padding: 0;
+}
+.level {
+  margin: 0;
+  padding: 0;
+}
 .scoreAndLevel {
+  margin: 1rem 0;
   display: flex;
   justify-content: space-between;
 }

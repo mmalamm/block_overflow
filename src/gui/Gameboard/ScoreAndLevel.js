@@ -4,8 +4,10 @@ import styles from "./styles/ScoreAndLevel.module.css";
 export default function ScoreAndLevel({ score, level }) {
   return (
     <div className={styles.scoreAndLevel}>
-      <h2 className={styles.score}>score: {score}</h2>
-      <h2 className={styles.level}>level: {level}</h2>
+      <h6 className={styles.scoreLabel}>score:</h6>
+      <h5 className={styles.score}>{score}</h5>
+      <h6 className={styles.levelLabel}>level:</h6>
+      <h5 className={styles.level}>{level}</h5>
     </div>
   );
 }
