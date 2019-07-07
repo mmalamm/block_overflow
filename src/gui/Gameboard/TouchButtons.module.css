@@ -43,6 +43,12 @@
     width: 4rem;
     height: 3.5rem;
 }
+.button_pause {
+    margin-left: 0;
+    margin-top: 2rem;
+    width: 4rem;
+    height: 3.5rem;
+}
 
 .button_cc {
     margin-left: 2.5rem;

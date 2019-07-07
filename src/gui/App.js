@@ -27,13 +27,17 @@ export default function App({ tetris }) {
         startGame();
         return;
       }
+      if (e.keyCode === 27 || e.keyCode === 80) {
+        togglePause();
+        return;
+      }
       tetris.pressKey(e);
     };
     document.addEventListener("keydown", keydownCallback);
     return () => {
       document.removeEventListener("keydown", keydownCallback);
     };
-  }, []);
+  }, [isPaused]);
 
   const startGame = () => {
     tetris.start();
@@ -68,13 +72,13 @@ export default function App({ tetris }) {
   };
   const togglePause = () => {
     if (isPaused === false) {
-      setPaused(true);
       tetris.pause();
+      setPaused(true);
     } else {
-      setPaused(false);
       tetris.resume();
+      setPaused(false);
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -88,7 +92,7 @@ export default function App({ tetris }) {
               level
             }}
           />
-          <TouchButtons {...{ interactionType, touchButton }} />
+          <TouchButtons {...{ interactionType, touchButton, togglePause }} />
           <button onClick={togglePause}>{isPaused ? "Resume" : "Pause"}</button>
         </>
       ) : (
