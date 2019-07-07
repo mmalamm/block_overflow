@@ -11,62 +11,51 @@ class Tetris {
     this.intervalLength = null;
     this.tracker = tracker;
   }
-
   subscribe(callback) {
     const unsubscribe = this.store.subscribe(_ => {
       callback(this.store.getState());
     });
     return unsubscribe;
   }
-
   getState() {
     return this.store.getState();
   }
-
   isStarted() {
     const { isStarted } = this.store.getState();
     return isStarted;
   }
-
-  pause() {
+  togglePause() {
     if (this.currentIntervalId) {
       clearInterval(this.currentIntervalId);
       this.currentIntervalId = null;
+    } else {
+      this.tick();
+      this.currentIntervalId = setInterval(this.tick, this.intervalLength);
     }
   }
-
-  resume() {
-    this.tick();
-    this.currentIntervalId = setInterval(this.tick, this.intervalLength);
-  }
-
   pressKey(e) {
     const action = keyMapper[e.keyCode];
     if (action) {
       this.dispatch(action);
     }
   }
-
   touchButton(btn) {
     const action = touchMapper[btn];
     if (action) {
       this.dispatch(action);
     }
   }
-
   dispatch(action) {
     if (!this.currentIntervalId) return;
     if (!this.isStarted()) return;
     this.store.dispatch(action);
   }
-
   tick = () => {
     if (!this.isStarted()) return;
     this.store.dispatch({
       type: TICK
     });
   };
-
   start() {
     this.tracker("event", "start_game", {
       event_category: "button_press",

@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./TouchButtons.module.css";
+import styles from "./styles/TouchButtons.module.css";
 const TouchButtons = ({ interactionType, touchButton, togglePause }) => {
   const isTouchScreen = interactionType === "touch";
-  return !isTouchScreen ? (
+  return isTouchScreen ? (
     <div className={styles.buttonPanel}>
       <div className={`${styles.btnSet} ${styles.leftBtns}`}>
         <button

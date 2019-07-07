@@ -8,6 +8,7 @@ import styles from "./App.module.css";
 
 import Gameboard from "./Gameboard/Gameboard";
 import TouchButtons from "./Gameboard/TouchButtons";
+import ScoreAndLevel from "./Gameboard/ScoreAndLevel";
 
 export default function App({ tetris }) {
   const [state, setState] = useState(tetris.getState());
@@ -55,31 +56,17 @@ export default function App({ tetris }) {
         <button onClick={startGame} onTouchStart={touchScreenCallback}>
           start game
         </button>
-        {renderScoreAndLevel()}
+        <ScoreAndLevel {...{ score, level }} />
       </div>
     );
   };
   const touchButton = direction => () => {
     tetris.touchButton(direction);
   };
-  const renderScoreAndLevel = () => {
-    return (
-      <>
-        <h2 className={styles.score}>score: {score}</h2>
-        <h2 className={styles.level}>level: {level}</h2>
-      </>
-    );
-  };
   const togglePause = () => {
-    if (isPaused === false) {
-      tetris.pause();
-      setPaused(true);
-    } else {
-      tetris.resume();
-      setPaused(false);
-    }
+    setPaused(!isPaused);
+    tetris.togglePause();
   };
-
   return (
     <div className={styles.container}>
       {isStarted ? (
