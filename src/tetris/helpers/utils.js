@@ -2,7 +2,7 @@ import PIECES from "../pieces";
 import createBoardSection from "./createBoardSection";
 import diffSections from "./diffSections";
 import sequences from "../sequences";
-import createNewBoard from "./createNewBoard";
+import insertPieceIntoBoard from "./insertPieceIntoBoard";
 
 export const createEmptyBoard = () => [...Array(20)].map(row => "e".repeat(10));
 
@@ -46,7 +46,7 @@ export const getNewScore = (currentScore, numRowsCleared, level) => {
 };
 
 export const getNewBoardAndNumRowsCleared = (board, playerPiece) => {
-  const tickedBoard = createNewBoard(board, playerPiece);
+  const tickedBoard = insertPieceIntoBoard(board, playerPiece);
   const clearedBoard = tickedBoard.filter(row => row.includes("e"));
   const numRowsCleared = 20 - clearedBoard.length;
   const newBoard = [

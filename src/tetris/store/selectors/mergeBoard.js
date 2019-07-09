@@ -1,11 +1,11 @@
 import { createSelector } from "reselect";
-import createNewBoard from "../../helpers/createNewBoard";
+import insertPieceIntoBoard from "../../helpers/insertPieceIntoBoard";
 import { boardSelector, pieceSelector } from "./shared";
 
 const mergeBoardSelector = createSelector(
   boardSelector,
   pieceSelector,
-  createNewBoard
+  insertPieceIntoBoard
 );
 
 export default mergeBoardSelector;
