@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./UpcomingPieces.module.css";
+import styles from "./styles/UpcomingPieces.module.css";
 import { COLORS } from "../../tetris/pieces";
 import { getShape } from "../../tetris/helpers/utils";
 

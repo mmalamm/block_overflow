@@ -8,11 +8,13 @@ import styles from "./App.module.css";
 
 import Gameboard from "./Gameboard/Gameboard";
 import TouchButtons from "./Gameboard/TouchButtons";
+import ScoreAndLevel from "./Gameboard/ScoreAndLevel";
 
 export default function App({ tetris }) {
   const [state, setState] = useState(tetris.getState());
   const [mergedBoard, setMergedBoard] = useState(createEmptyBoard());
   const [interactionType, setInteractionType] = useState("click");
+  const [isPaused, setPaused] = useState(false);
 
   const { score, isStarted, level, upcomingPieces } = state;
 
@@ -26,13 +28,17 @@ export default function App({ tetris }) {
         startGame();
         return;
       }
+      if (e.keyCode === 27 || e.keyCode === 80) {
+        togglePause();
+        return;
+      }
       tetris.pressKey(e);
     };
     document.addEventListener("keydown", keydownCallback);
     return () => {
       document.removeEventListener("keydown", keydownCallback);
     };
-  }, []);
+  }, [isPaused]);
 
   const startGame = () => {
     tetris.start();
@@ -50,22 +56,17 @@ export default function App({ tetris }) {
         <button onClick={startGame} onTouchStart={touchScreenCallback}>
           start game
         </button>
-        {renderScoreAndLevel()}
+        <ScoreAndLevel {...{ score, level }} />
       </div>
     );
   };
   const touchButton = direction => () => {
     tetris.touchButton(direction);
   };
-  const renderScoreAndLevel = () => {
-    return (
-      <>
-        <h2 className={styles.score}>score: {score}</h2>
-        <h2 className={styles.level}>level: {level}</h2>
-      </>
-    );
+  const togglePause = () => {
+    setPaused(!isPaused);
+    tetris.togglePause();
   };
-
   return (
     <div className={styles.container}>
       {isStarted ? (
@@ -78,7 +79,7 @@ export default function App({ tetris }) {
               level
             }}
           />
-          <TouchButtons {...{ interactionType, touchButton }} />
+          <TouchButtons {...{ interactionType, touchButton, togglePause }} />
         </>
       ) : (
         renderHomeScreen()

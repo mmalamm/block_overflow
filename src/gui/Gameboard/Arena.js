@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Arena.module.css";
+import styles from "./styles/Arena.module.css";
 import { COLORS } from "../../tetris/pieces";
 const Arena = ({ mergedBoard }) => (
   <div className={styles.arena}>

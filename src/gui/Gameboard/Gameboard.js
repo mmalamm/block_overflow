@@ -2,7 +2,8 @@ import React from "react";
 import UpcomingPieces from "./UpcomingPieces";
 import Arena from "./Arena";
 
-import styles from "./Gameboard.module.css";
+import styles from "./styles/Gameboard.module.css";
+import ScoreAndLevel from "./ScoreAndLevel";
 
 export default function Gameboard({
   upcomingPieces,
@@ -10,19 +11,11 @@ export default function Gameboard({
   score,
   level
 }) {
-  const renderScoreAndLevel = () => {
-    return (
-      <div className={styles.scoreAndLevel}>
-        <h2 className={styles.score}>score: {score}</h2>
-        <h2 className={styles.level}>level: {level}</h2>
-      </div>
-    );
-  };
   return (
     <div className={styles.gameBoard}>
-      <UpcomingPieces upcomingPieces={upcomingPieces.slice(-4)} />
+      <UpcomingPieces upcomingPieces={upcomingPieces} />
       <Arena mergedBoard={mergedBoard} />
-      {renderScoreAndLevel()}
+      <ScoreAndLevel {...{ score, level }} />
     </div>
   );
 }

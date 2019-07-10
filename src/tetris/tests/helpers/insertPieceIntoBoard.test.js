@@ -1,8 +1,8 @@
 import { createEmptyBoard } from "../../helpers/utils";
 import { getShape } from "../../helpers/utils";
-import createNewBoard from "../../helpers/createNewBoard";
+import insertPieceIntoBoard from "../../helpers/insertPieceIntoBoard";
 
-describe("createNewBoard scenarios", () => {
+describe("insertPieceIntoBoard scenarios", () => {
   it("will create new board when piece at bottom of board", () => {
     const emptyBoard = createEmptyBoard();
     const yCoordinate =
@@ -22,7 +22,7 @@ describe("createNewBoard scenarios", () => {
       .slice(0, yCoordinate)
       .concat([`eeeeeeleee`, `eeeellleee`]);
 
-    expect(createNewBoard(emptyBoard, pieceAtBottom)).toEqual(expectedBoard);
+    expect(insertPieceIntoBoard(emptyBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
 
   it("will create new board when piece collides with another piece", () => {
@@ -42,7 +42,7 @@ describe("createNewBoard scenarios", () => {
       .slice(0, -4)
       .concat([`eeeezzeeee`, `eeeeezzeee`, `eeeeeeleee`, `eeeellleee`]);
 
-    expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
+    expect(insertPieceIntoBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
   it("will create new board when piece is offsetted on right corner", () => {
     const pieceAtBottom = {
@@ -59,7 +59,7 @@ describe("createNewBoard scenarios", () => {
       .slice(0, -3)
       .concat([`eeeeeeeeej`, `eeeeeeeeej`, `eeeeeeeejj`]);
 
-    expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
+    expect(insertPieceIntoBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
   it("will create new board when piece has empty row at the bottom", () => {
     const pieceAtBottom = {
@@ -78,7 +78,7 @@ describe("createNewBoard scenarios", () => {
       .slice(0, -4)
       .concat([`eeeeeeeeei`, `eeeeeeeeei`, `eeeeesseei`, `eeeesseeei`]);
 
-    expect(createNewBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
+    expect(insertPieceIntoBoard(currentBoard, pieceAtBottom)).toEqual(expectedBoard);
   });
   it("weird case I'm trying to figure out", () => {
     const pieceToCollide = {
@@ -135,7 +135,7 @@ describe("createNewBoard scenarios", () => {
       "iztttoolle"
     ];
 
-    expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
+    expect(insertPieceIntoBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
   });
   it("weird bug i found", () => {
     const pieceToCollide = {
@@ -192,7 +192,7 @@ describe("createNewBoard scenarios", () => {
       "esslzzoojj"
     ];
 
-    expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
+    expect(insertPieceIntoBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
   });
   it("LATEST BUG", () => {
     const pieceToCollide = {
@@ -249,6 +249,6 @@ describe("createNewBoard scenarios", () => {
       "tsslooezzi"
     ];
 
-    expect(createNewBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
+    expect(insertPieceIntoBoard(currentBoard, pieceToCollide)).toEqual(expectedBoard);
   });
 });

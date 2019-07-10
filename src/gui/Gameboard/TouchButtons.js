@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./TouchButtons.module.css";
-const TouchButtons = ({ interactionType, touchButton }) => {
+import styles from "./styles/TouchButtons.module.css";
+const TouchButtons = ({ interactionType, touchButton, togglePause }) => {
   const isTouchScreen = interactionType === "touch";
   return isTouchScreen ? (
     <div className={styles.buttonPanel}>
@@ -10,6 +10,12 @@ const TouchButtons = ({ interactionType, touchButton }) => {
           onTouchStart={touchButton("CLOCKWISE")}
         >
           {"🔁"}
+        </button>
+        <button
+          className={`${styles.touchButton} ${styles.button_pause}`}
+          onTouchStart={togglePause}
+        >
+          {"⏯"}
         </button>
       </div>
 

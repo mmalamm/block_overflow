@@ -1,0 +1,63 @@
+.buttonPanel {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100vw;
+  margin-top: 1rem;
+}
+
+.btnSet {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightBtns {
+  margin: -2rem 0.5rem;
+}
+
+.leftBtns {
+  margin: 0 0.5rem;
+}
+
+.touchButton {
+  background-color: inherit;
+  margin: -0.2rem 0;
+  height: 3rem;
+  width: 3.5rem;
+  border-radius: 3.5rem;
+  border-width: 1.5px;
+  border-color: cyan;
+  font-size: 1.2rem;
+  opacity: 0.7;
+  display: flex;
+  justify-content: center;
+}
+.button_up {
+  margin-bottom: 1rem;
+}
+.oneButtonWidth {
+  display: flex;
+  justify-content: center;
+}
+.button_down {
+  margin-top: 1rem;
+}
+.twoButtonWidth {
+  display: flex;
+}
+
+.button_cw {
+  margin-left: 0;
+  width: 4rem;
+  height: 3.5rem;
+}
+.button_pause {
+  margin-left: 0;
+  margin-top: 2rem;
+  width: 4rem;
+  height: 3.5rem;
+}
+
+.button_cc {
+  margin-left: 2.5rem;
+}
