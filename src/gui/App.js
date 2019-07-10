@@ -80,7 +80,6 @@ export default function App({ tetris }) {
             }}
           />
           <TouchButtons {...{ interactionType, touchButton, togglePause }} />
-          <button onClick={togglePause}>{isPaused ? "Resume" : "Pause"}</button>
         </>
       ) : (
         renderHomeScreen()

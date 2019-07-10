@@ -1,7 +1,8 @@
 .upcomingPieces {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 2.5rem;
+  grid-area: c;
 }
 
 .row {

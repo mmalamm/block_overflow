@@ -1,23 +1,31 @@
+.scoreAndLevel {
+  grid-area: a;
+  display: grid;
+  grid-template-areas:
+    "a a a a b"
+    "c c c c d";
+}
 .scoreLabel {
+  grid-area: a;
   margin: 0;
   padding: 0;
   color: green;
 }
 .levelLabel {
+  grid-area: b;
+  text-align: right;
   margin: 0;
   padding: 0;
   color: blue;
 }
 .score {
-  margin: 0;
+  grid-area: c;
+  margin: 0 .5rem;
   padding: 0;
 }
 .level {
-  margin: 0;
+  text-align: right;
+  grid-area: d;
+  margin: 0 0.5rem;
   padding: 0;
-}
-.scoreAndLevel {
-  margin: 1rem 0;
-  display: flex;
-  justify-content: space-between;
 }

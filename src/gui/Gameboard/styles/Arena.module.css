@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   background-image: linear-gradient(to bottom, blue, cyan);
+  grid-area: b;
 }
 
 .row {

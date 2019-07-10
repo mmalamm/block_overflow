@@ -13,7 +13,7 @@ export default function Gameboard({
 }) {
   return (
     <div className={styles.gameBoard}>
-      <UpcomingPieces upcomingPieces={upcomingPieces.slice(-4)} />
+      <UpcomingPieces upcomingPieces={upcomingPieces} />
       <Arena mergedBoard={mergedBoard} />
       <ScoreAndLevel {...{ score, level }} />
     </div>

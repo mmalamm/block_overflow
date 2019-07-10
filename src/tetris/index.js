@@ -13,7 +13,9 @@ class Tetris {
   }
   subscribe(callback) {
     const unsubscribe = this.store.subscribe(_ => {
-      callback(this.store.getState());
+      const state = this.store.getState();
+      const { upcomingPieces } = state;
+      callback({ ...state, upcomingPieces: upcomingPieces.slice(-4) });
     });
     return unsubscribe;
   }

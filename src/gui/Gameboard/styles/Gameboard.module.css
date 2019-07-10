@@ -1,0 +1,7 @@
+.gameBoard {
+  display: grid;
+  grid-template-areas:
+    "a a"
+    "b c";
+  grid-gap: .5rem 1rem;
+}
