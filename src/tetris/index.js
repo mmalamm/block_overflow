@@ -3,13 +3,14 @@ import createStore from "./store/createStore";
 import { TICK, START, keyMapper, touchMapper } from "./constants";
 
 class Tetris {
-  constructor(initIntervalLength, tracker) {
+  constructor(initIntervalLength, tracker, updateScore) {
     this.initIntervalLength = initIntervalLength;
     this.store = createStore();
     this.currentIntervalId = null;
     this.currentLevel = null;
     this.intervalLength = null;
     this.tracker = tracker;
+    this.updateScore = updateScore;
   }
   subscribe(callback) {
     const unsubscribe = this.store.subscribe(_ => {
@@ -76,6 +77,7 @@ class Tetris {
           event_label: "game_end_score",
           value: state.score
         });
+        this.updateScore(state.score)
         unsubscribe();
         return;
       }

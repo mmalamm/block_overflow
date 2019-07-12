@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { createEmptyBoard } from "../tetris/helpers/utils";
 
@@ -15,13 +15,30 @@ export default function App({ tetris }) {
   const [mergedBoard, setMergedBoard] = useState(createEmptyBoard());
   const [interactionType, setInteractionType] = useState("click");
   const [isPaused, setPaused] = useState(false);
+  const [highScore, setHighScore] = useState(
+    window.localStorage.getItem("highScore")
+  );
 
   const { score, isStarted, level, upcomingPieces } = state;
+
+  const startGame = useCallback(() => {
+    tetris.start();
+  }, [tetris]);
+
+  const togglePause = useCallback(() => {
+    setPaused(!isPaused);
+    tetris.togglePause();
+  }, [tetris, isPaused]);
 
   useEffect(() => {
     tetris.subscribe(state => {
       setState(state);
       setMergedBoard(ghostBoard(state));
+      if (!state.isStarted) {
+        if (state.score > highScore) {
+          setHighScore(state.score);
+        }
+      }
     });
     const keydownCallback = e => {
       if (e.key === "Enter" && !tetris.getState().isStarted) {
@@ -38,11 +55,7 @@ export default function App({ tetris }) {
     return () => {
       document.removeEventListener("keydown", keydownCallback);
     };
-  }, [isPaused]);
-
-  const startGame = () => {
-    tetris.start();
-  };
+  }, [isPaused, highScore, tetris, startGame, togglePause]);
 
   const renderHomeScreen = () => {
     const touchScreenCallback = e => {
@@ -57,15 +70,14 @@ export default function App({ tetris }) {
           start game
         </button>
         <ScoreAndLevel {...{ score, level }} />
+        {highScore && (
+          <h3 style={{ textAlign: "center" }}>High Score: {highScore}</h3>
+        )}
       </div>
     );
   };
   const touchButton = direction => () => {
     tetris.touchButton(direction);
-  };
-  const togglePause = () => {
-    setPaused(!isPaused);
-    tetris.togglePause();
   };
   return (
     <div className={styles.container}>
